@@ -7,15 +7,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
 </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script> 
+
+<script>
+function verificarDuplicacao(campo, valor) {
+  function verificarDuplicacao(campo, valor) {
+    if (valor !== "") {
+        clearTimeout(requestTimers[campo]);
+        requestTimers[campo] = setTimeout(function() {
+            $.ajax({
+                type: "POST",
+                url: "verificar_duplicacao.php",
+                data: { campo: campo, valor: valor },
+                success: function(response) {
+                    $("#" + campo + "Warning").text(""); // Limpa mensagem de aviso do campo
+                    if (response === "existe") {
+                        $("#" + campo + "Warning").text(""); // Limpa mensagem de usuário não encontrado
+                    } else {
+                        $("#" + campo + "Warning").text("Esse usuário não existe no Sistema");
+                    }
+                }
+            });
+        }, 500);
+    }
+}
+}
+
+</script>
 <body>
   <div class="container">
     <div class="login">
         <h1>Página login</h1>
         <form action="login.php" method="POST" id="#form_login">
           <div class="inputs">
-            <input type="text" id="usuario" name="usuario" placeholder="Seu usuário">
-            <span id="userWarning" style="color: red;" ></span>
-            <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
+          <input type="text" id="user" name="user" placeholder="Seu usuário" required oninput="verificarDuplicacao('user', this.value)">
+          <span id="userWarning" style="color: red;"></span>
+
+          <input type="password" id="senha" name="senha" placeholder="Sua senha" required oninput="verificarDuplicacao('senha', this.value)">
+          <span id="userWarning" style="color: red;"></span>
             <div class="check">
               <input type="checkbox" name="salvar" id="salvar">
               <h4>Lembrar de mim</h4>
@@ -55,10 +85,10 @@
     $loginResult = ""; 
     $logado = false;
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $user = trim($_POST['usuario']);
+        $user = trim($_POST['user']);
         $senha = trim($_POST['senha']);
 
-        $sql = "SELECT * FROM usuarios WHERE nome_usuario = '$user' AND senha = '$senha'";
+        $sql = "SELECT * FROM usuarios WHERE user= '$user' AND senha = '$senha'";
         $result = mysqli_query($conexao, $sql);
         if (mysqli_num_rows($result) == 1){
             $loginResult = "success";
@@ -68,14 +98,8 @@
             
         }
         else{
-            header("Location: login.php");
-            echo ' erro';
-            $logado = false;
-            exit;
-
-
-
         }
+        
     }
 ?>
 

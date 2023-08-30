@@ -34,10 +34,10 @@
             <form action="cadastro.php" method="post">
                 <div class="inputs">
                     <input type="text" id="nome" name="nome" placeholder="Nome do jogo" required>
-                    <select id="plataforma" aria-placeholder="Plataforma" >
-                        <option value="padrao">Selecione a Plataforma</option>
-                        <option value="PC"> PC </option>
-                        <option value="PlayStation"> PlayStation</option>
+                    <select id="plataforma" name="plataforma" aria-placeholder="Plataforma">
+                        <option disabled selected>Selecione a Plataforma</option>
+                        <option value="PC">PC</option>
+                        <option value="PlayStation">PlayStation</option>
                         <option value="Xbox">Xbox</option>
                     </select>
                     <input type="number" id="price" name="price" placeholder="Preço do jogo" required>

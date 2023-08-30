@@ -14,7 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
         echo "existe";
     }
-}
+    else{
+        echo"n existe";
+    }
+}   
+    
 
 $conexao->close();
 ?>
