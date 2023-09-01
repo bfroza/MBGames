@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30-Ago-2023 às 21:35
+-- Tempo de geração: 01-Set-2023 às 20:43
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -71,6 +71,13 @@ CREATE TABLE `jogos` (
   `quantidade` int(11) NOT NULL,
   `img` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Extraindo dados da tabela `jogos`
+--
+
+INSERT INTO `jogos` (`id`, `nome`, `plataforma`, `price`, `quantidade`, `img`) VALUES
+(1, 'Rocket League', 'PC', 250.00, 2, 'transferir (1).jfif');
 
 -- --------------------------------------------------------
 
@@ -190,7 +197,7 @@ ALTER TABLE `fornecedor`
 -- AUTO_INCREMENT de tabela `jogos`
 --
 ALTER TABLE `jogos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
