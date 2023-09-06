@@ -1,3 +1,27 @@
+<?php
+    include("conexao.php");
+
+    $loginResult = ""; 
+    $logado = false;
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $user = trim($_POST['user']);
+        $senha = trim($_POST['senha']);
+
+        $sql = "SELECT * FROM usuarios WHERE user= '$user' AND senha = '$senha'";
+        $result = mysqli_query($conexao, $sql);
+        if (mysqli_num_rows($result) == 1){
+            $loginResult = "success";
+            header("Location: index.php");
+            $logado = true;
+            exit;
+            
+        }
+        else{
+        }
+        
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,20 +40,24 @@
                     <li><a href="jogos.php">JOGOS</a></li>
                     <li><a href="platafoma.html">PLATAFORMAS</a></li>
                     <li><a href="cadastro.html">CADASTRO</a></li>
-                    <script>
-                        if(log == true){
+                    <?php 
+                     include("conexao.php");
+                        if ($loginResult != 'success' or $logado != true) {
+                            echo ' <li class="botao"><a href="login.php" target="_blank">ENTRAR</a></li>';
 
-                        }
+                        } 
                         else{
-                            <li class="botao"><a href="login.php" target="_blank">ENTRAR</a></li>
+                           
                         }
-                    </script>
-                    
+                           
+                        
+                    ?>
+
                 </ul>
             </div>
         </nav>   
         <div class="logo">
-            <a href="index.php"><img src="img/desenvolvimento-de-jogos.png" alt="Logo"></a>
+            <a href="index.php"><img src="img/desenvolvimento-de-jogos.png" alt="Logo" ></a>
             <h1>MB GAMES</h1>
         </div>
     </div>
@@ -49,5 +77,5 @@
 
 
 <script>
-    
+    console.log(<?php echo'$loginResult' ?>)
 </script>

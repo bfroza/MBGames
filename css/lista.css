@@ -59,69 +59,15 @@
 .lista li :hover{
     color: #007bff;
 }
-.botao {
-    padding: 15px 20px;
-    background-color: #2cc76a;
-    border-radius: 5px;
-    text-align: center;
-    transition-duration: 0.7s;
-}
-
-.botao-ocult {
-    background-color: transparent;
-    border: none;
-
-}
-.botao-ocult li{
-    color: transparent;
-}
-
-.botao:hover {
-    background-color: #0e542a;
-    border-radius: 5px;
-    color: black;
-    transition-duration: 0.7s;
-    
-}
-
-.corpo ul{
-    padding-top: 145px; 
-    display: flex;
-    list-style: none;
-    text-align: center;
-    border-radius: 23px;
-    justify-content: center;
-    padding-left: 934px;
-    
-  }
-
-.corpo li{
-    padding-left: 45px;
-    border-radius: 23px;
-    text-align: center;
-    align-items: center;
-    color: transparent;
-    
-}
-
-.corpo li:hover{
-    transform: scale(1.1);
-    transition: 600ms;
-    cursor: pointer;
-    opacity: 1;
-    color: white;
-    text-size-adjust: 23px;
-}
-.img{
-    border-radius: 33px;
-}
-.titulo{
-    color: white;
-}
 
 body{
     background-color: #1f4064;
     width: 100%;
     max-width: 400px;
 }
-
+.container{
+    background-color: white;
+    width: 100%;
+    max-width: 400px;
+    padding-top: 145px; 
+}

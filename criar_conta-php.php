@@ -1,21 +1,24 @@
 <?php
-    include("conexao.php");
+include("conexao.php");
 
-    $nome = trim($_POST['nome']);
-    $user = trim($_POST['user']);
-    $email = trim($_POST['email']);
-    $cpf = trim($_POST['cpf']);
-    $data = trim($_POST['data']);  
-    $senha = trim($_POST['senha']);
-    
-    $sql = "INSERT INTO usuarios (nome, nome_usuario, email, cpf, data_nascimento, senha) 
-            VALUES ('$nome', '$user', '$email', '$cpf', '$data', '$senha')";
+$nome = mysqli_real_escape_string($conexao, trim($_POST['nome']));
+$user = mysqli_real_escape_string($conexao, trim($_POST['user']));
+$email = mysqli_real_escape_string($conexao, trim($_POST['email']));
+$cpf = mysqli_real_escape_string($conexao, trim($_POST['cpf']));
+$data = mysqli_real_escape_string($conexao, trim($_POST['data']));  
+$senha = mysqli_real_escape_string($conexao, trim($_POST['senha']));
 
-    if (mysqli_query($conexao, $sql)) {
-    }
-    else {
-        echo "Erro: " . mysqli_error($conexao); 
-    }
-    
-    mysqli_close($conexao);
+
+$senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+$sql = "INSERT INTO usuarios (nome, nome_usuario, email, cpf, data_nascimento, senha) 
+        VALUES ('$nome', '$user', '$email', '$cpf', '$data', '$senhaHash')";
+
+if (mysqli_query($conexao, $sql)) {
+    echo "Registro inserido com sucesso!";
+} else {
+    echo "Erro: " . mysqli_error($conexao);
+}
+
+mysqli_close($conexao);
 ?>

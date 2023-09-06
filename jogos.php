@@ -16,8 +16,9 @@
             <ul>
                 <li><a href="index.php">HOME</a></li>
                 <li><a href="jogos.php">JOGOS</a></li>
+                <li><a href="lista.php">LISTA</a></li>
                 <li><a href="platafoma.html">PLATAFORMAS</a></li>
-                <li><a href="cadastro.html"><i class="fas fa-search"></i></a></li>
+                <li><a href="vendas.html"><i class="fas fa-shopping-cart" style="color: #e6e7eb;"></i></a></li>
             </ul>
 
             </div>
