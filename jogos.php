@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/jogos.css">
     <link rel="shortcut icon" href="img/controlador.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MB GAMES</title>
@@ -11,26 +13,18 @@
     <div class="cabecalho">
         <nav>
             <div class="lista">
-                <ul>
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="jogos.php">JOGOS</a></li>
-                    <li><a href="platafoma.html">PLATAFORMAS</a></li>
-                    <li><a href="cadastro.html">CADASTRO</a></li>
-                    <script>
-                        if(log == true){
+            <ul>
+                <li><a href="index.php">HOME</a></li>
+                <li><a href="jogos.php">JOGOS</a></li>
+                <li><a href="platafoma.html">PLATAFORMAS</a></li>
+                <li><a href="cadastro.html"><i class="fas fa-search"></i></a></li>
+            </ul>
 
-                        }
-                        else{
-                            <li class="botao"><a href="login.php" target="_blank">ENTRAR</a></li>
-                        }
-                    </script>
-                    
-                </ul>
             </div>
         </nav>   
         <div class="logo">
             <a href="index.php"><img src="img/desenvolvimento-de-jogos.png" alt="Logo"></a>
-            <h1>MB GAMES</h1>
+            <h1>MB GAMES - JOGOS</h1>
         </div>
     </div>
     
@@ -48,6 +42,3 @@
 </html>
 
 
-<script>
-    
-</script>

@@ -103,6 +103,14 @@ function verificarDuplicacao(campo, valor) {
     }
 ?>
 
+<script>
+  if($logado == true){
+    log =true;
+  }
+  
+</script>
+
+
 
 
 
