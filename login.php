@@ -80,7 +80,7 @@
     
       mysqli_stmt_bind_param($stmt, "ss", $user, $senha);
 
-
+    $logado = false;
       mysqli_stmt_execute($stmt);
 
 
@@ -91,7 +91,6 @@
           $logado = true;
           exit;
       } else {
-          $logado = false;
       }
 
       // Feche a declaração preparada
@@ -100,5 +99,6 @@
 ?>
 
 <script>
-    console.log(<?php include('conezao.php'); echo'$loginResult' ?>)
+  let login =
+    <?php  ?>
 </script>
