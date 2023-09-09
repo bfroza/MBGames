@@ -2,8 +2,8 @@
 // Conecte-se ao banco de dados
 include("conexao.php");
 
-// Execute uma consulta na view visu_jogos
-$sql = "SELECT nome, price, quantidade, img FROM visu_jogos";
+// Execute uma consulta na tabela visu_jogos
+$sql = "SELECT nome, plataforma, price, quantidade, img FROM visu_jogos";
 $result = mysqli_query($conexao, $sql);
 
 // Verifique se há erros na consulta
@@ -15,59 +15,76 @@ if (!$result) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/lista.css">
-    <link rel="shortcut icon" href="img/jogo-arcade.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Jogos</title>
+    <title>Lista de Jogos Disponíveis</title>
+    <link rel="stylesheet" href="css/css1/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css1/bs-admin.css">
+    <link rel="stylesheet" href="css/css1/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="css/css1/select2.min.css">
+    <link rel="stylesheet" href="css/css1/select2-bootstrap-5-theme.min.css">
+    <link rel="stylesheet" href="css/css1/font-awesome-all.min.css">
+    <link rel="stylesheet" href="css/listas.css">
 </head>
 <body>
-    <div class="cabecalho">
-        <nav>
-            <div class="lista">
-                <ul>
-                    <li><a href="index.php">HOME</a></li>
-                    <li><a href="jogos.php">JOGOS</a></li>
-                    <li><a href="platafoma.html">PLATAFORMAS</a></li>
-                    <li><a href="cadastro.html">CADASTRO</a></li>
-                </ul>
+    <h1>Lista de Jogos Disponíveis</h1>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <table class="table table-bordered table-hover" id="dados">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Plataforma</th>
+                                        <th scope="col">Quantidade</th>
+                                        <th scope="col">Preço</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $caminhoParaImagens = "img/";
+                                        $urlDaImagem = $caminhoParaImagens . $row['img'];
+                                        ?>
+                                        <tr>
+                                            <td><?php echo $row['nome']; ?></td>
+                                            <td><?php echo $row['plataforma']; ?></td> <!-- Adiciona a coluna Plataforma -->
+                                            <td><?php echo $row['quantidade']; ?></td>
+                                            <td><?php echo 'R$' . $row['price']; ?></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-           
-        </nav>   
-        <div class="logo">
-            <a rotating-element href="index.html"><img src="img/desenvolvimento-de-jogos.png" alt="Logo">  </a>
-            <H1>MB GAMES</H1>
         </div>
     </div>
-    <div class="container"></div>
 
-    <h1>Lista de Jogos Disponíveis</h1>
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
-            <th>Imagem</th>
-        </tr>
-        <?php
-      
-        
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>";
-            echo "<td>" . $row['nome'] . "</td>";
-            echo "<td>R$" . $row['price'] . "</td>"; 
-            echo "<td>" . $row['quantidade'] . "</td>";
-            $caminhoParaImagens = "img/"; 
-            $urlDaImagem = $caminhoParaImagens . $row['img'];
-            echo "<td><img src='" . $urlDaImagem . "' alt='Imagem do Jogo' width='100'></td>";
-            echo "</tr>";
-        }
-        ?>
-    </table>
+    <?php
+    mysqli_close($conexao);
+    ?>
+
+    <!-- Inclua aqui os scripts JavaScript necessários -->
+    <script src="includes/jquery/dist/jquery.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="includes/sb-admin/js/sb-admin-2.min.js"></script>
+    <script src="js/sweetalert2.all.min.js"></script>
+    <script src="js/font-awesome-all.min.js"></script>
+    <script src="js/jquery.dataTables.min.js"></script>
+    <script src="js/dataTables.bootstrap5.min.js"></script>
+    <script src="js/jquery.mask.min.js"></script>
+    <script src="js/select2.full.min.js"></script>
+    <script src="js/pt-BR.js"></script>
+    <script src="js/jquery.maskMoney.min.js"></script>
+    <script src="js/chart.js/chart.umd.js"></script>
+    <script src="js/date-eu.js"></script>
 </body>
 </html>
-
-<?php
-
-mysqli_close($conexao);
-?>
