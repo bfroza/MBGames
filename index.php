@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/jogos-pag.css">
     <link rel="shortcut icon" href="img/controlador.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -38,16 +38,56 @@
         </div>
     </div>
     
-    <div class="corpo">
-        <ul>
-            <li><a href="#"><img src="img/AC_Valhalla_capa.webp" alt="" height="470" width="270" class="img"></a> Assassin's Creed Valhalla</li>
-            <li><a href="#"><img src="img/rogue.jfif" alt=""  height="470" width="270" class="img"></a> Assassin's Creed Rogue</li>
-            <li><a href="#"><img src="img/transferir.jfif" alt="" height="470" width="270" class="img"></a> The Witcher</li>
-            <li><a href="#"><img src="img/gta.jfif" alt=""  height="470" width="270" class="img"></a> GTA V</li>
-            <li><a href="#"><img src="img/red.jpg" alt=""  height="470" width="270" class="img"></a> Red Dead Redemption</li>
-            <li><a href="#"><img src="img/red.jpg" alt=""  height="470" width="270" class="img"></a> Red Dead Redemption</li>
-        </ul>
-    </div>
+    <?php
+    include("conexao.php");
+
+    $sql_select = "SELECT nome, img, quantidade, price FROM `visu_jogos`";
+    $result = mysqli_query($conexao, $sql_select);
+
+    if ($result) {
+        $counter = 0; 
+        echo '<div class="corpo">';
+        echo '<ul>';
+        
+        while ($row = mysqli_fetch_assoc($result)) {
+            if ($counter % 6 == 0) {
+                echo '</ul>';
+                echo '<ul>';
+            }
+            
+            $img = "img/";
+        
+            // Verifique se a quantidade é igual a 0
+            $classeCSS = ($row['quantidade'] == 0) ? 'jogo-sem-estoque' : '';
+        
+            echo '<li>';
+            echo '<form method="POST" action="vendas.php">';
+            
+            $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
+            echo '<a href="#"><img src="' .$img. $row['img'] . '" alt="" height="470" width="270" class="img" ' . $filtroSaturacao . '></a>';
+            
+            echo '<p>' . $row['nome'] . '</p>';
+          
+            
+         
+            
+           
+           
+            echo '</li>';
+            
+            $counter++; 
+        }
+        
+        echo '</ul>';
+        echo '</div>';
+        
+        mysqli_free_result($result);
+    } else {
+        echo "Erro ao recuperar jogos do banco de dados: " . mysqli_error($conexao);
+    }
+
+    mysqli_close($conexao);
+    ?>
 </body>
 </html>
 

@@ -65,25 +65,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '</ul>';
                 echo '<ul>';
             }
-            
+        
             $img = "img/";
+        
+            // Verifique se a quantidade é igual a 0
+            $classeCSS = ($row['quantidade'] == 0) ? 'jogo-sem-estoque' : '';
+        
             echo '<li>';
             echo '<form method="POST" action="vendas.php">';
-            echo '<a href="#"><img src="' .$img. $row['img'] . '" alt="" height="470" width="270" class="img"></a>';
+        
+            // Aplicar o filtro de saturação à imagem quando a quantidade for 0
+            $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
+            echo '<a href="#"><img src="' . $img . $row['img'] . '" alt="" height="470" width="270" class="img ' . $classeCSS . '" ' . $filtroSaturacao . '></a>';
+        
             echo '<p>' . $row['nome'] . '</p>';
             echo '<p>Quantidade disponível: ' . $row['quantidade'] . '</p>';
-            echo '<p>Preço: $' . $row['price'] . '</p>';
-            
-           
+            echo '<p>Preço: R$ ' . $row['price'] . '</p>';
+        
             echo '<label for="quantidade">Selecione a quantidade:</label>';
-            echo '<input type="number" id="quantidade" name="quantidade" min="1" max="' . $row['quantidade'] . '">';
+        
+            // Adicione a propriedade "disabled" ao campo de quantidade quando a quantidade for 0
+            $quantidadeDisabled = ($row['quantidade'] == 0) ? 'disabled' : '';
+            if($row['quantidade'] > 0){
+            echo '<input type="number" id="quantidade" name="quantidade" min="1" max="' . $row['quantidade'] . '" ' . $quantidadeDisabled . ' value="1">';}
+            else{
+                echo '<input type="number" id="quantidade" name="quantidade" min="1" max="' . $row['quantidade'] . '" ' . $quantidadeDisabled . '>';
+            }
+
+        
             echo '<input type="hidden" name="jogo" value="' . $row['nome'] . '">';
-            echo '<button type="submit" class="comprar-button">Comprar</button>';
+        
+            // Adicione a classe CSS "comprar-button" ao botão de compra
+            // e desabilite a interação do botão quando a quantidade for 0
+            $botaoDisabled = ($row['quantidade'] == 0) ? 'jogo-sem-estoque' : '';
+            echo '<button type="submit" class="comprar-button ' . $botaoDisabled . '" ' . $quantidadeDisabled . '>Adicionar ao carrinho</button>';
+        
             echo '</form>';
             echo '</li>';
-            
-            $counter++; 
+        
+            $counter++;
         }
+        
+        
+        
+        
+        
+        
         
         echo '</ul>';
         echo '</div>';

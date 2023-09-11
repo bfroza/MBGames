@@ -15,7 +15,6 @@
     margin-top: -57px;
     margin-left: 90px;
     color: white;
-    position: fixed;
     
 }
 
@@ -41,10 +40,13 @@
     
 
 }
-
 .lista a{
     text-decoration: none;
     color: white;
+}
+
+.lista p{
+    padding-top: 5px;
 }
 .lista ul{
     margin-top: 10px auto;
@@ -67,6 +69,16 @@
     border-radius: 5px;
     text-align: center;
     transition-duration: 0.7s;
+    padding-bottom: 15px
+}
+
+.botao-ocult {
+    background-color: transparent;
+    border: none;
+
+}
+.botao-ocult li{
+    color: transparent;
 }
 
 .botao:hover {
@@ -77,36 +89,22 @@
     
 }
 
-body{
-    background-color: #1f4064;
-    width: 100%;
-    max-width: 400px;
-}
-
-.corpo ul{
-    padding-top: 145px; 
+.corpo ul {
+    padding-top: 100px; 
     display: flex;
     list-style: none;
     text-align: center;
     border-radius: 23px;
     justify-content: center;
     padding-left: 934px;
-    
-  }
+    color:transparent;
 
-.corpo li{
-    padding-left: 45px;
-    border-radius: 23px;
-    text-align: center;
-    align-items: center;
-    color: transparent;
-    
 }
 
-.hidden {
-    display: none;
+.corpo li p{
+   
+    color:transparent;
 }
-
 .corpo li:hover{
     transform: scale(1.1);
     transition: 600ms;
@@ -115,6 +113,33 @@ body{
     color: white;
     text-size-adjust: 23px;
 }
+
+.corpo li{
+    padding-left: 45px;
+    border-radius: 23px;
+    text-align: center;
+    align-items: center;
+    color: white;
+    
+}
+.comprar-button {
+    padding: 10px 10px;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    transition-duration: 0.7s;
+}
+
+.comprar-button:hover {
+    background-color: #0e542a;
+    border-radius: 5px;
+    color: black;
+    transition-duration: 0.7s;
+    
+}
+
+
+
 .img{
     border-radius: 33px;
 }
@@ -122,6 +147,20 @@ body{
     color: white;
 }
 
-.fa-solid {
-    color: white;
+body{
+    background-color: #1f4064;
+    width: 100%;
+    max-width: 400px;
+    
 }
+
+
+
+i.fas.fa-shopping-cart {
+    color: #FFFFFF;
+}
+
+.jogo-sem-estoque img {
+    filter: grayscale(100%); /* Transforma a imagem em escala de cinza */
+}
+

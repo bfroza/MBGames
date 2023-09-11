@@ -18,6 +18,7 @@ if (!$result) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Jogos Disponíveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/css1/bootstrap.min.css">
     <link rel="stylesheet" href="css/css1/bs-admin.css">
     <link rel="stylesheet" href="css/css1/jquery.dataTables.min.css">
@@ -27,6 +28,8 @@ if (!$result) {
     <link rel="stylesheet" href="css/listas.css">
 </head>
 <body>
+   
+
     <h1>Lista de Jogos Disponíveis</h1>
 
     <div class="container-fluid">
@@ -35,13 +38,15 @@ if (!$result) {
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <table class="table table-bordered table-hover" id="dados">
+                        <table class="table table-bordered table-hover tabela-relatorio" id="dados">
                                 <thead>
                                     <tr>
                                         <th scope="col">Nome</th>
                                         <th scope="col">Plataforma</th>
                                         <th scope="col">Quantidade</th>
                                         <th scope="col">Preço</th>
+                                        <th scope="col">Preço Total</th>
+                                
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,17 +60,22 @@ if (!$result) {
                                             <td><?php echo $row['plataforma']; ?></td> <!-- Adiciona a coluna Plataforma -->
                                             <td><?php echo $row['quantidade']; ?></td>
                                             <td><?php echo 'R$' . $row['price']; ?></td>
-                                        </tr>
+                                            <td><?php echo 'R$' . $row['price'] * $row['quantidade'] ; ?></td>
+                                            
                                         <?php
                                     }
                                     ?>
                                 </tbody>
+                               
                             </table>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <button id="btnRelatorio">Relatório de Jogos</button>
+
     </div>
 
     <?php
@@ -86,5 +96,36 @@ if (!$result) {
     <script src="js/jquery.maskMoney.min.js"></script>
     <script src="js/chart.js/chart.umd.js"></script>
     <script src="js/date-eu.js"></script>
+
+    <script>
+document.getElementById("btnRelatorio").addEventListener("click", function() {
+    // Clone a tabela com os dados
+    var table = document.getElementById("dados").cloneNode(true);
+
+    // Adicione a classe CSS à tabela clonada
+    table.classList.add("tabela-relatorio");
+
+    // Crie uma nova janela para o relatório
+    var printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.open();
+
+    // Crie o conteúdo HTML da janela de impressão
+    printWindow.document.write('<html><head><title>Relatório de Jogos</title>');
+    printWindow.document.write('<link rel="stylesheet" type="text/css" href="css/css1/bootstrap.min.css">');
+    printWindow.document.write('</head><body>');
+    printWindow.document.write('<h1>Relatório de Jogos</h1>');
+    printWindow.document.write('<style>.tabela-relatorio { width: 100%; } .tabela-relatorio th, .tabela-relatorio td { text-align: left; padding: 5px; }</style>');
+    printWindow.document.write('<table>' + table.outerHTML + '</table>');
+    printWindow.document.write('</body></html>');
+
+    // Feche o documento da nova janela
+    printWindow.document.close();
+
+    // Chame a função de impressão
+    printWindow.print();
+});
+</script>
+
+
 </body>
 </html>

@@ -44,6 +44,10 @@
     text-decoration: none;
     color: white;
 }
+
+.lista p{
+    padding-top: 5px;
+}
 .lista ul{
     margin-top: 10px auto;
     list-style: none;
@@ -65,6 +69,7 @@
     border-radius: 5px;
     text-align: center;
     transition-duration: 0.7s;
+    padding-bottom: 15px
 }
 
 .botao-ocult {
@@ -139,6 +144,7 @@ body{
     background-color: #1f4064;
     width: 100%;
     max-width: 400px;
+    
 }
 
 
@@ -146,3 +152,17 @@ body{
 i.fas.fa-shopping-cart {
     color: #FFFFFF;
 }
+
+.jogo-sem-estoque img {
+    filter: grayscale(100%); /* Transforma a imagem em escala de cinza */
+}
+
+
+.jogo-sem-estoque.comprar-button {
+    background-color: #ccc; 
+    color: #999; /* Cor de texto para botão desabilitado */
+    pointer-events: none; /* Desabilita a interação do botão */
+    cursor: not-allowed; /* Altera o cursor para indicar indisponibilidade */
+    
+}
+
