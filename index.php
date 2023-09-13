@@ -17,7 +17,7 @@
                 <li><a href="index.php">HOME</a></li>
                 <li><a href="jogos.php">JOGOS</a></li>
                 <li><a href="cadastro.html">CADASTRO</a></li>
-                <li><a href="platafoma.html">PLATAFORMAS</a></li>
+                <li><a href="platafoma.php">PLATAFORMAS</a></li>
                 <?php 
                      include("conexao.php");
                         if ($loginResult != 'success' or $logado != true) {
@@ -65,7 +65,6 @@
             
             $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
             echo '<a href="#"><img src="' .$img. $row['img'] . '" alt="" height="470" width="270" class="img" ' . $filtroSaturacao . '></a>';
-            
             echo '<p>' . $row['nome'] . '</p>';
           
             
