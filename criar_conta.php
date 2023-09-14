@@ -35,8 +35,8 @@ if (mysqli_num_rows($resultCpf) > 0) {
 }
 
 if (!$userExists && !$emailExists && !$cpfExists) {
-    $sql = "INSERT INTO usuarios (nome, user, email, cpf, cep, data_nascimento, senha) 
-            VALUES ('$nome', '$user', '$email', '$cpf', '$cep', '$data', '$senha')";
+    $sql = "INSERT INTO usuarios (nome, user, email, cpf, cep, data_nascimento,idade, senha) 
+            VALUES ('$nome', '$user', '$email', '$cpf', '$cep', '$data',calcularIdade('$data'), '$senha')";
 
     if (mysqli_query($conexao, $sql)) {
         echo "Novo registro criado com sucesso!";

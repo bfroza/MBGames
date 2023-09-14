@@ -53,7 +53,11 @@ function verificarDuplicacao(campo, valor) {
               
               <input type="text" id="cpf" name="cpf" placeholder="Seu CPF" required oninput="verificarDuplicacao('cpf', this.value)">
               <span id="cpfWarning" style="color: red;"></span>
-              
+              <script>
+                $(document).ready(function() {
+                  $('#cep').inputmask('99999-999');
+                });
+              </script>
               <input type="text" id="cep" name="cep" placeholder="Seu CEP" required>
               <input type="date" id="data" name="data" placeholder="Data de Nascimento" required>
               <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
@@ -73,9 +77,4 @@ function verificarDuplicacao(campo, valor) {
   </div>
 </body>
 </html>
-
-
-
-
-
 

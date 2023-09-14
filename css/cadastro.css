@@ -142,6 +142,7 @@ body{
     height: 425px;
     align-items: center;
     text-align: center;
+    height: auto;
  }
 .corpo-form{
     position: absolute;
@@ -155,6 +156,7 @@ body{
     align-items: center;
     text-align: center;
     flex-direction: column;
+    height: auto;
 
    
 }

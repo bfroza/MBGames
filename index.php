@@ -64,8 +64,10 @@
             echo '<form method="POST" action="vendas.php">';
             
             $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
-            echo '<a href="#"><img src="' .$img. $row['img'] . '" alt="" height="470" width="270" class="img" ' . $filtroSaturacao . '></a>';
+            echo '<a href="jogos.php"><img src="' .$img. $row['img'] . '" alt="" height="470" width="270" class="img" ' . $filtroSaturacao . '></a>';
             echo '<p>' . $row['nome'] . '</p>';
+           
+
           
             
          
