@@ -38,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="index.php">HOME</a></li>
                     <li><a href="jogos.php">JOGOS</a></li>
                     <li><a href="lista.php">LISTA</a></li>
-                    <li><a href="cadastro.html">CADASTRO</a></li>
-                    <li><a href="vendas.html"><i class="fas fa-shopping-cart" style="color: #FFFFFF;"></i></a></li>
+                    <li><a href="cadastro-view.php">CADASTRO</a></li>
+                    <li><a href="carrinho.html"><i class="fas fa-shopping-cart" style="color: #FFFFFF;"></i></a></li>
                 </ul>
             </div>
         </nav>   

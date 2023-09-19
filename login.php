@@ -69,6 +69,7 @@
 </body>
 </html>
 <?php
+$logado = false;
   include("conexao.php");
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $user = trim($_POST['user']);
@@ -80,17 +81,30 @@
     
       mysqli_stmt_bind_param($stmt, "ss", $user, $senha);
 
-    $logado = false;
+  
       mysqli_stmt_execute($stmt);
 
 
       mysqli_stmt_store_result($stmt);
       if (mysqli_stmt_num_rows($stmt) == 1) {
           $loginResult = "success";
-          header("Location: index.php");
+         
+          
           $logado = true;
+          echo "<script>
+          var minhaVariavelJS = 'Usuário logado com sucesso!';
+          alert(minhaVariavelJS);
+          window.location.href = 'index.php'; // Redireciona para a página
+          </script>";
           exit;
       } else {
+        $logado = false;
+        echo "<script>
+        var minhaVariavelJS = ' Houve alguma falha ao logar';
+        alert(minhaVariavelJS);
+        window.location.href = 'login.php'; // Redireciona para a página
+        </script>";
+        
       }
 
       // Feche a declaração preparada
@@ -98,7 +112,3 @@
   }
 ?>
 
-<script>
-  let login =
-    <?php  ?>
-</script>

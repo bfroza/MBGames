@@ -23,7 +23,7 @@
                     <li><a href="index.php">HOME</a></li>
                     <li><a href="jogos.php">JOGOS</a></li>
                     <li><a href="platafoma.php">PLATAFORMAS</a></li>
-                    <li><a href="cadastro.html">CADASTRO</a></li>
+                    <li><a href="cadastro-view.php">CADASTRO</a></li>
                     <li class="botao"><a href="login.html" target="_blank">ENTRAR</a></li>
                 </ul>
             </div>
@@ -48,11 +48,26 @@
                         <option value="PlayStation">PlayStation</option>
                         <option value="Xbox">Xbox</option>
                     </select>
-                    <select id="plataforma" name="plataforma" aria-placeholder="Plataforma">
-                        <option disabled selected>Selecione a Plataforma</option>
-                        <option value="PC">PC</option>
-                        <option value="PlayStation">PlayStation</option>
-                        <option value="Xbox">Xbox</option>
+                    <select id="categoria" name="categoria" required>
+                        <option disabled selected>Selecione a Categoria</option>
+                        <?php
+                            // Conecte ao banco de dados e consulte as categorias
+                            $conn = new mysqli("localhost", "root", "", "mb");
+                            if ($conn->connect_error) {
+                            die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+                            }
+
+                            $sql = "SELECT id, tipo_de_jogo FROM categoria";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['tipo_de_jogo'] . "</option>";
+                            }
+                            }
+
+                            $conn->close();
+                        ?>
                     </select>
                     <input type="number" id="price" name="price" placeholder="Preço do jogo" required>
                     

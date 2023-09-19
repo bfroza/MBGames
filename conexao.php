@@ -9,7 +9,7 @@
         die("Houve um erro: " . mysqli_connect_error());
     }
     else{
-        $loginResult = 'fail';
+        $loginResult = 'sucess';
     }
 
 ?>

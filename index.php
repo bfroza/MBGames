@@ -16,16 +16,15 @@
             <ul>
                 <li><a href="index.php">HOME</a></li>
                 <li><a href="jogos.php">JOGOS</a></li>
-                <li><a href="cadastro.html">CADASTRO</a></li>
+                <li><a href="cadastro-view.php">CADASTRO</a></li>
                 <li><a href="platafoma.php">PLATAFORMAS</a></li>
                 <?php 
                      include("conexao.php");
-                        if ($loginResult != 'success' or $logado != true) {
-                            echo ' <li class="botao"><a href="login.php" target="_blank">ENTRAR</a></li>';
-                        } 
-                        else{
-                           
-                        }
+                    if ($loginResult != 'success' || $logado != true) {
+                        echo '<li class="botao"><a href="login.php" target="_blank">ENTRAR</a></li>';
+                    } else {
+                        echo '<li><a href="carrinho.html"><i class="fas fa-shopping-cart" style="color: #FFFFFF;"></i></a></li>';
+                    }
                     ?>
                 
             </ul>
@@ -91,5 +90,4 @@
     ?>
 </body>
 </html>
-
 

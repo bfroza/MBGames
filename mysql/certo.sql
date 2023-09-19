@@ -92,12 +92,13 @@ SELECT jogos.nome AS nome, jogos.quantidade AS quantidade, 'Xbox' AS plataforma
 FROM jogos
 WHERE jogos.plataforma = 'Xbox' AND jogos.quantidade > 0
 ORDER BY
+quantidade DESC,
   CASE plataforma
     WHEN 'PC' THEN 1
     WHEN 'PlayStation' THEN 2
     WHEN 'Xbox' THEN 3
-  END,
-  quantidade DESC;
+  END
+  
 
 
 
@@ -117,6 +118,12 @@ FROM usuarios;
 CREATE VIEW visu_vendas_totais AS
 SELECT jogos_has_vendas.jogos_id AS jogos_id, jogos_has_vendas.vendas_id AS vendas_id
 FROM jogos_has_vendas;
+
+-- View visu_desconto
+CREATE VIEW visu_desconto AS SELECT 
+
+
+
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -140,3 +147,37 @@ END;
 //
 
 DELIMITER ;
+
+
+
+
+
+
+-- ---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- INSERTS
+
+
+--Regitros da tabela de categorias
+INSERT INTO categoria (tipo_de_jogo)
+VALUES
+  ('Ação'),
+  ('Aventura'),
+  ('RPG'),
+  ('Esportes'),
+  ('Estratégia'),
+  ('Tiro em Primeira Pessoa'),
+  ('Corrida'),
+  ('Luta'),
+  ('Simulação'),
+  ('Quebra-Cabeças'),
+  ('Retro'),
+  ('Mundo Aberto'),
+  ('Sobrevivência'),
+  ('Musical'),
+  ('Horror'),
+  ('Educativo'),
+  ('Casual'),
+  ('Arcade'),
+  ('Construção'),
+  ('História Interativa');
