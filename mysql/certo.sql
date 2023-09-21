@@ -39,7 +39,7 @@ CREATE TABLE categoria_has_jogos (
 CREATE TABLE usuarios (
   id INT NOT NULL AUTO_INCREMENT,
   nome VARCHAR(255) NOT NULL,
-  nome_usuario VARCHAR(255) NOT NULL,
+  user VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
   cpf VARCHAR(255) NOT NULL,
   cep VARCHAR(45) NOT NULL,
@@ -97,7 +97,7 @@ quantidade DESC,
     WHEN 'PC' THEN 1
     WHEN 'PlayStation' THEN 2
     WHEN 'Xbox' THEN 3
-  END
+  END;
   
 
 
@@ -115,12 +115,9 @@ SELECT usuarios.nome AS nome, usuarios.user AS user, usuarios.cpf AS cpf, usuari
 FROM usuarios;
 
 -- View visu_vendas_totais
-CREATE VIEW visu_vendas_totais AS
-SELECT jogos_has_vendas.jogos_id AS jogos_id, jogos_has_vendas.vendas_id AS vendas_id
-FROM jogos_has_vendas;
 
 -- View visu_desconto
-CREATE VIEW visu_desconto AS SELECT 
+
 
 
 
@@ -149,6 +146,20 @@ END;
 DELIMITER ;
 
 
+
+-- TRIGGER
+DELIMITER //
+CREATE TRIGGER valida_quantidade
+BEFORE INSERT ON jogos
+FOR EACH ROW
+BEGIN
+    IF NEW.quantidade <= 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'A quantidade deve ser maior que zero';
+    END IF;
+END;
+//
+DELIMITER ;
 
 
 

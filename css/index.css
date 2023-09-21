@@ -135,13 +135,14 @@
     border-radius: 5px;
     color: black;
     transition-duration: 0.7s;
-    
+    cursor: pointer;
 }
 
 
 
 .img{
     border-radius: 33px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5)
 }
 .titulo{
     color: white;

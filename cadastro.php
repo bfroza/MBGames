@@ -24,7 +24,7 @@ if (mysqli_num_rows($result) > 0) {
     $atualizar_stmt = mysqli_prepare($conexao, $atualizar_sql);
     mysqli_stmt_bind_param($atualizar_stmt, "diss", $novo_preco, $nova_quantidade, $nome, $plataforma);
 
-    if (mysqli_stmt_execute($atualizar_stmt)) {
+    if (mysqli_stmt_execute($atualizar_stmt) && $quantidade > 0 ) {
         // Jogo atualizado com sucesso
         echo "<script>
                 alert('Jogo atualizado com sucesso!');
@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 0) {
     $inserir_stmt = mysqli_prepare($conexao, $inserir_sql);
     mysqli_stmt_bind_param($inserir_stmt, "ssdds", $nome, $plataforma, $price, $quantidade, $img);
 
-    if (mysqli_stmt_execute($inserir_stmt)) {
+    if (mysqli_stmt_execute($inserir_stmt) && $quantidade > 0 ) {
         // Jogo cadastrado com sucesso
         echo "<script>
                 alert('Jogo cadastrado com sucesso!');

@@ -27,6 +27,7 @@ if (!$result) {
     <link rel="stylesheet" href="css/css1/select2-bootstrap-5-theme.min.css">
     <link rel="stylesheet" href="css/css1/font-awesome-all.min.css">
     <link rel="stylesheet" href="css/listas.css">
+    <link rel="shortcut icon" href="img/plataforma.png" type="image/x-icon">
 </head>
 <body>
 

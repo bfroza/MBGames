@@ -42,14 +42,14 @@
             <form action="cadastro.php" method="post">
                 <div class="inputs">
                     <input type="text" id="nome" name="nome" placeholder="Nome do jogo" required>
-                    <select id="plataforma" name="plataforma" aria-placeholder="Plataforma">
-                        <option disabled selected>Selecione a Plataforma</option>
+                    <select id="plataforma" name="plataforma" aria-placeholder="Plataforma" required>
+                        <option value="" disabled selected>Selecione a Plataforma</option>
                         <option value="PC">PC</option>
                         <option value="PlayStation">PlayStation</option>
                         <option value="Xbox">Xbox</option>
                     </select>
                     <select id="categoria" name="categoria" required>
-                        <option disabled selected>Selecione a Categoria</option>
+                        <option value="" disabled selected>Selecione a Categoria</option>
                         <?php
                             // Conecte ao banco de dados e consulte as categorias
                             $conn = new mysqli("localhost", "root", "", "mb");
@@ -69,9 +69,9 @@
                             $conn->close();
                         ?>
                     </select>
-                    <input type="number" id="price" name="price" placeholder="Preço do jogo" required>
-                    
-                    <input type="number" id="quantidade" name="quantidade" placeholder="Quantidade" required>
+                    <input type="number" id="quantidade" name="quantidade" value="1" min="1" placeholder="Quantidade" required>
+                    <input type="number" id="price" name="price" min="10.01" step="any" placeholder="Preço do jogo" required>
+
                     <input type="file" id="img" name="img" placeholder="Imagem do jogo">
                 </div>
                 <button class="button" type="submit">Cadastrar Jogo</button>

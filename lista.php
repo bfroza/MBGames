@@ -26,6 +26,7 @@ if (!$result) {
     <link rel="stylesheet" href="css/css1/select2-bootstrap-5-theme.min.css">
     <link rel="stylesheet" href="css/css1/font-awesome-all.min.css">
     <link rel="stylesheet" href="css/listas.css">
+    <link rel="shortcut icon" href="img/verificacao-da-lista-da-area-de-transferencia.png" type="image/x-icon">
 </head>
 <body>
    
@@ -54,16 +55,21 @@ if (!$result) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $caminhoParaImagens = "img/";
                                         $urlDaImagem = $caminhoParaImagens . $row['img'];
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $row['nome']; ?></td>
-                                            <td><?php echo $row['plataforma']; ?></td> <!-- Adiciona a coluna Plataforma -->
-                                            <td><?php echo $row['quantidade']; ?></td>
-                                            <td><?php echo 'R$' . $row['price']; ?></td>
-                                            <td><?php echo 'R$' . $row['price'] * $row['quantidade'] ; ?></td>
-                                            
-                                        <?php
+                                    
+                                        // Adicione a condição if para verificar se a quantidade é maior que 0
+                                        if ($row['quantidade'] > 0) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $row['nome']; ?></td>
+                                                <td><?php echo $row['plataforma']; ?></td>
+                                                <td><?php echo $row['quantidade']; ?></td>
+                                                <td><?php echo 'R$' . $row['price']; ?></td>
+                                                <td><?php echo 'R$' . $row['price'] * $row['quantidade']; ?></td>
+                                            </tr>
+                                            <?php
+                                        }
                                     }
+                                    
                                     ?>
                                 </tbody>
                                
