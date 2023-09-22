@@ -69,7 +69,7 @@
                             $conn->close();
                         ?>
                     </select>
-                    <input type="number" id="quantidade" name="quantidade" value="1" min="1" placeholder="Quantidade" required>
+                    <input type="number" id="quantidade" name="quantidade" value="" min="" placeholder="Quantidade" required>
                     <input type="number" id="price" name="price" min="10.01" step="any" placeholder="Preço do jogo" required>
 
                     <input type="file" id="img" name="img" placeholder="Imagem do jogo">

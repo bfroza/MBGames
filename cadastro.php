@@ -45,8 +45,8 @@ if (mysqli_num_rows($result) > 0) {
     $inserir_stmt = mysqli_prepare($conexao, $inserir_sql);
     mysqli_stmt_bind_param($inserir_stmt, "ssdds", $nome, $plataforma, $price, $quantidade, $img);
 
-    if (mysqli_stmt_execute($inserir_stmt) && $quantidade > 0 ) {
-        // Jogo cadastrado com sucesso
+    if (mysqli_stmt_execute($inserir_stmt) ) {
+        // Jogo cadastrado com sucesso! -> (&& $quantidade > 0) Expressão para por no if caso utilizamos 2 tabelas: compras e produtos
         echo "<script>
                 alert('Jogo cadastrado com sucesso!');
                 window.location.href = 'cadastro-view.php'; // Redireciona para a página 

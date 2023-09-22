@@ -71,6 +71,16 @@ CREATE TABLE usuarios_has_vendas (
 );
 
 
+-- Tabela cupons 
+CREATE TABLE cupons (
+  id INT NOT NULL AUTO_INCREMENT,
+  nome VARCHAR(255),
+  estado TINYINT(1) NOT NULL DEFAULT 0, -- Definido como 1 ou 0 para representar verdadeiro ou falso
+  desconto DECIMAL(10,2) NOT NULL,
+  PRIMARY KEY (id) 
+);
+
+
 
 
 
@@ -148,18 +158,18 @@ DELIMITER ;
 
 
 -- TRIGGER
-DELIMITER //
-CREATE TRIGGER valida_quantidade
-BEFORE INSERT ON jogos
-FOR EACH ROW
-BEGIN
-    IF NEW.quantidade <= 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'A quantidade deve ser maior que zero';
-    END IF;
-END;
-//
-DELIMITER ;
+-- DELIMITER //
+-- CREATE TRIGGER valida_quantidade
+-- BEFORE INSERT ON jogos
+-- FOR EACH ROW
+-- BEGIN
+--     IF NEW.quantidade <= 0 THEN
+--         SIGNAL SQLSTATE '45000'
+--         SET MESSAGE_TEXT = 'A quantidade deve ser maior que zero';
+--     END IF;
+-- END;
+-- //
+-- DELIMITER ;
 
 
 
@@ -169,7 +179,7 @@ DELIMITER ;
 -- INSERTS
 
 
---Regitros da tabela de categorias
+-- Regitros da tabela de categorias
 INSERT INTO categoria (tipo_de_jogo)
 VALUES
   ('Ação'),
@@ -192,3 +202,17 @@ VALUES
   ('Arcade'),
   ('Construção'),
   ('História Interativa');
+
+
+-- Inserir 10 registros de cupons com nomes seguindo o padrão "XXoff" e valores de desconto inteiros de até 20
+INSERT INTO cupons (nome, estado, desconto) VALUES
+  ('04off', 1, 4),
+  ('06off', 1, 6),
+  ('08off', 1, 8),
+  ('10off', 0, 10),
+  ('12off', 0, 12),
+  ('14off', 0, 14),
+  ('16off', 0, 16),
+  ('18off', 0, 18),
+  ('20off', 0, 20),
+  ('02off', 1, 2);
