@@ -104,7 +104,8 @@ body{
 .inputs input[type="password"],
 .inputs input[type="number"],
 .inputs select,
-.inputs input[type="file"] {
+.inputs input[type="file"],
+textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
