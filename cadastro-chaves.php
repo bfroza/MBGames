@@ -11,7 +11,7 @@ $chave_array = preg_split('/\R/', $chaves, -1, PREG_SPLIT_NO_EMPTY);
 foreach ($chave_array as $chave) {
     $inserir_sql = "INSERT INTO chaves (jogo_id, chave) VALUES (?, ?)";
     $inserir_stmt = mysqli_prepare($conexao, $inserir_sql);
-    mysqli_stmt_bind_param($inserir_stmt, "is", $jogo_id, $chave);
+    mysqli_stmt_bind_param($inserir_stmt, "is" , $jogo_id, $chave); // os 'is'referece a i de integer e s de string 
 
     if (mysqli_stmt_execute($inserir_stmt)) {
         // Chave cadastrada com sucesso

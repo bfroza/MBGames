@@ -17,7 +17,6 @@ CREATE TABLE jogos (
   nome VARCHAR(255) NOT NULL,
   plataforma VARCHAR(45) NOT NULL,
   price DECIMAL(10,2) NOT NULL,
-  quantidade INT NOT NULL,
   img VARCHAR(255) NULL,
   PRIMARY KEY (id)
 );
@@ -89,6 +88,13 @@ CREATE TABLE chaves (
   FOREIGN KEY (jogo_id) REFERENCES jogos (id)
 );
 
+--Tabela Fornecedor
+CREATE TABLE fornecedor(
+  id INT NOT NULL AUTO_INCREMENT,
+  INT NOT NULL,
+
+)
+
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -96,30 +102,59 @@ CREATE TABLE chaves (
 
 -- View visu_plataforma_jogos
 CREATE VIEW plataforma_jogos AS
-SELECT jogos.nome AS nome, jogos.quantidade AS quantidade, 'PC' AS plataforma
+SELECT jogos.nome AS nome, COUNT(chaves.chave) AS quantidade, 'PC' AS plataforma
 FROM jogos
-WHERE jogos.plataforma = 'PC' AND jogos.quantidade > 0
+INNER JOIN chaves ON chaves.jogo_id = jogos.id
+WHERE jogos.plataforma = 'PC'
+GROUP BY jogos.nome, jogos.plataforma
+
 UNION
-SELECT jogos.nome AS nome, jogos.quantidade AS quantidade, 'PlayStation' AS plataforma
+
+SELECT jogos.nome AS nome, COUNT(chaves.chave) AS quantidade, 'PlayStation' AS plataforma
 FROM jogos
-WHERE jogos.plataforma = 'PlayStation' AND jogos.quantidade > 0
+INNER JOIN chaves ON chaves.jogo_id = jogos.id
+WHERE jogos.plataforma = 'PlayStation'
+GROUP BY jogos.nome, jogos.plataforma
+
 UNION
-SELECT jogos.nome AS nome, jogos.quantidade AS quantidade, 'Xbox' AS plataforma
+
+SELECT jogos.nome AS nome, COUNT(chaves.chave) AS quantidade, 'Xbox' AS plataforma
 FROM jogos
-WHERE jogos.plataforma = 'Xbox' AND jogos.quantidade > 0
-ORDER BY
-quantidade DESC,
+INNER JOIN chaves ON chaves.jogo_id = jogos.id
+WHERE jogos.plataforma = 'Xbox'
+GROUP BY jogos.nome, jogos.plataforma
+
+ORDER BY quantidade DESC,
   CASE plataforma
     WHEN 'PC' THEN 1
     WHEN 'PlayStation' THEN 2
     WHEN 'Xbox' THEN 3
   END;
 
+
 -- View visu_jogos
 CREATE VIEW visu_jogos AS
-SELECT jogos.nome AS nome, jogos.plataforma AS plataforma, jogos.price AS price, jogos.quantidade AS quantidade, jogos.img AS img 
+SELECT jogos.nome, jogos.img,jogos.plataforma COUNT(chaves.chave) AS quantidade, jogos.price
 FROM jogos
-ORDER BY jogos.nome ASC;
+INNER JOIN chaves ON chaves.jogo_id = jogos.id where chaves.jogo_id = jogos.id;
+
+CREATE VIEW visu_jogos AS
+SELECT
+    jogos.nome,
+    jogos.img,
+    jogos.plataforma,
+    SUM(IF(chaves.valido = 1, 1, 0)) AS quantidade, -- Sum pega todos os valores da tabela e soma, mas o campo valido deve estar true
+    jogos.price
+FROM
+    jogos
+LEFT JOIN chaves ON chaves.jogo_id = jogos.id
+GROUP BY
+    jogos.nome,
+    jogos.img,
+    jogos.plataforma,
+    jogos.price;
+
+
 
 -- View visu_usuario
 CREATE VIEW visu_usuario AS

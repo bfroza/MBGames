@@ -62,13 +62,8 @@
                 <button class="button" type="submit">Cadastrar Chaves</button>
             </form>
             
-            <div class="li-icons">
-                <ul>
-                  <li><a href="#"><img src="img/jogos.png" alt="img pc" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/botoes.png" alt="img playstation" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/xbox.png" alt="img xbox" width="30px" height="30px"></a></li>
-                </ul>
-              </div>
+            
+
     
         </div>
     </div>
