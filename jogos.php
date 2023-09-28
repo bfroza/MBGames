@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     include("conexao.php");
 
-    $sql_select = "SELECT nome, img, plataforma, quantidade, price FROM visu_jogos";
+    $sql_select = "SELECT nome, img,plataforma, quantidade, price FROM `visu_jogos`";
     $result = mysqli_query($conexao, $sql_select);
 
     if ($result) {
@@ -81,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<p>' . $row['nome'] . '</p>';
             echo '<p>Quantidade disponível: ' . $row['quantidade'] . '</p>';
             echo '<p>Preço: R$ ' . $row['price'] . '</p>';
+            echo '<p>' . $row['plataforma'] . '</p>';
             echo '<p>' . $row['plataforma'] . '</p>';
         
             echo '<label for="quantidade">Selecione a quantidade:</label>';

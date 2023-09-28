@@ -5,7 +5,6 @@ $nome = trim($_POST['nome']);
 $user = trim($_POST['user']);
 $email = trim($_POST['email']);
 $cpf = trim($_POST['cpf']);
-$cep = trim($_POST['cep']);
 $data = trim($_POST['data']);  
 $senha = trim($_POST['senha']);
 
@@ -47,8 +46,8 @@ if (mysqli_num_rows($resultCpf) > 0) {
 }
 
 if (!$userExists && !$emailExists && !$cpfExists) {
-    $sql = "INSERT INTO usuarios (nome, user, email, cpf, cep, data_nascimento,idade, senha) 
-            VALUES ('$nome', '$user', '$email', '$cpf', '$cep', '$data',calcularIdade('$data'), '$senha')";
+    $sql = "INSERT INTO usuarios (nome, user, email, cpf, data_nascimento,idade, senha) 
+            VALUES ('$nome', '$user', '$email', '$cpf',  '$data',calcularIdade('$data'), '$senha')";
 
     if (mysqli_query($conexao, $sql)) {
         echo "<script>

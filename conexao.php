@@ -2,7 +2,7 @@
     $servidor="localhost";
     $usuario="root";
     $senha="";
-    $dbname="mb";
+    $dbname="mb_games";
     
     $conexao=mysqli_connect($servidor,$usuario,$senha,$dbname);
     if(!$conexao){

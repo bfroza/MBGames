@@ -24,7 +24,6 @@
                     <li><a href="jogos.php">JOGOS</a></li>
                     <li><a href="chaves-view.php">COMPRA</a></li>
                     <li><a href="cadastro-view.php">CADASTRO</a></li>
-                    <li><a href="fornecedor-view.php">CADASTRO FORNECEDOR</a></li>
                     <li class="botao"><a href="login.html" target="_blank">ENTRAR</a></li>
                 </ul>
             </div>
@@ -38,15 +37,13 @@
     <div class="corpo-form">
         <div class="form">
             <div class="cadastro-h1">
-                <h1>Cadastro de Jogos</h1>
+                <h1>Cadastro de Fornecedores</h1>
             </div>
             <form action="cadastro.php" method="post">
                 <div class="inputs">
                     <input type="text" id="nome" name="nome" placeholder="Nome do jogo" required>
-                    <input type="text" id="desenvolvedor" name="desenvolvedor"  placeholder="Desenvolvedor" required>
-                    <input type="text" id="anoLancamento" name="anoLancamento"  placeholder="Ano de lançamento do jogo" required>
-                    <select id="categoria" name="categoria" required>
-                        <option value="" disabled selected>Selecione a Categoria</option>
+                    <select id="jogo" name="jogo" required>
+                        <option value="" disabled selected>Selecione o Jogo</option>
                         <?php
                             // Conecte ao banco de dados e consulte as categorias
                             $conn = new mysqli("localhost", "root", "", "mb_games");
@@ -54,30 +51,23 @@
                             die("Falha na conexão com o banco de dados: " . $conn->connect_error);
                             }
 
-                            $sql = "SELECT *  FROM categorias";
+                            $sql = "SELECT idJogos,nome  FROM Jogos";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . $row['idCategoria'] . "'>" . $row['categoria'] . "</option>";
+                                echo "<option value='" . $row['idJogos'] . "'>" . $row['nome'] . "</option>";
                             }
                             }
 
                             $conn->close();
                         ?>
                     </select>
-                    <input type="file" id="imagem" name="imagem" placeholder="Imagem do jogo">
+    
                 </div>
-                <button class="button" type="submit">Cadastrar Jogo</button>
+                <button class="button" type="submit">Cadastrar Fornecedor</button>
             </form>
             
-            <div class="li-icons">
-                <ul>
-                  <li><a href="#"><img src="img/jogos.png" alt="img pc" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/botoes.png" alt="img playstation" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/xbox.png" alt="img xbox" width="30px" height="30px"></a></li>
-                </ul>
-              </div>
     
         </div>
     </div>

@@ -2,10 +2,12 @@
 include("conexao.php");
 
 $nome = trim($_POST['nome']);
-$plataforma = $_POST['plataforma'];
-$price = trim($_POST['price']);
-$quantidade = trim($_POST['quantidade']);
-$img = trim($_POST['img']);
+$categoria = $_POST['categoria'];
+$fornecedor = $_POST['fornecedor'];
+$anoLancamento = trim($_POST['anoLancamento']);
+$valor = trim($_POST['valor']);
+
+$imagem = trim($_POST['imagem']);
 
 // Verificar se o jogo já existe na tabela para a mesma plataforma
 $verificar_sql = "SELECT * FROM jogos WHERE nome = ? AND plataforma = ?";
@@ -18,13 +20,12 @@ if (mysqli_num_rows($result) > 0) {
     // O jogo já existe para a mesma plataforma, então vamos atualizar a quantidade e/ou preço
     $row = mysqli_fetch_assoc($result);
     $novo_preco = $price; // Correção: não é necessário usar $row['price']
-    $nova_quantidade = $row['quantidade'] + $quantidade; // Somar a nova quantidade à quantidade existente
 
-    $atualizar_sql = "UPDATE jogos SET price = ?, quantidade = ? WHERE nome = ? AND plataforma = ?";
+    $atualizar_sql = "UPDATE jogos SET price = ?, WHERE nome = ? AND plataforma = ?";
     $atualizar_stmt = mysqli_prepare($conexao, $atualizar_sql);
-    mysqli_stmt_bind_param($atualizar_stmt, "diss", $novo_preco, $nova_quantidade, $nome, $plataforma);
+    mysqli_stmt_bind_param($atualizar_stmt, "diss", $novo_preco, $nome, $plataforma);
 
-    if (mysqli_stmt_execute($atualizar_stmt) && $quantidade > 0 ) {
+    if (mysqli_stmt_execute($atualizar_stmt)) {
         // Jogo atualizado com sucesso
         echo "<script>
                 alert('Jogo atualizado com sucesso!');
@@ -41,9 +42,9 @@ if (mysqli_num_rows($result) > 0) {
     mysqli_stmt_close($atualizar_stmt);
 } else {
     // O jogo não existe para a mesma plataforma, então vamos inseri-lo
-    $inserir_sql = "INSERT INTO jogos (nome, plataforma, price, quantidade, img) VALUES (?, ?, ?, ?, ?)";
+    $inserir_sql = "INSERT INTO jogos (nome, plataforma, price,img) VALUES (?, ?, ?, ?)";
     $inserir_stmt = mysqli_prepare($conexao, $inserir_sql);
-    mysqli_stmt_bind_param($inserir_stmt, "ssdds", $nome, $plataforma, $price, $quantidade, $img);
+    mysqli_stmt_bind_param($inserir_stmt, "ssds", $nome, $plataforma, $price, $img);
 
     if (mysqli_stmt_execute($inserir_stmt) ) {
         // Jogo cadastrado com sucesso! -> (&& $quantidade > 0) Expressão para por no if caso utilizamos 2 tabelas: compras e produtos

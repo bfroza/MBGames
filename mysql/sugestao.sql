@@ -84,16 +84,17 @@ CREATE TABLE chaves (
   id INT NOT NULL AUTO_INCREMENT,
   jogo_id INT NOT NULL,
   chave VARCHAR(255) NOT NULL,
+  estoque TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (id),
   FOREIGN KEY (jogo_id) REFERENCES jogos (id)
 );
 
---Tabela Fornecedor
-CREATE TABLE fornecedor(
-  id INT NOT NULL AUTO_INCREMENT,
-  INT NOT NULL,
+-- --Tabela Fornecedor
+-- CREATE TABLE fornecedor(
+--   id INT NOT NULL AUTO_INCREMENT,
+--   INT NOT NULL,
 
-)
+-- )
 
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,11 +135,6 @@ ORDER BY quantidade DESC,
 
 -- View visu_jogos
 CREATE VIEW visu_jogos AS
-SELECT jogos.nome, jogos.img,jogos.plataforma COUNT(chaves.chave) AS quantidade, jogos.price
-FROM jogos
-INNER JOIN chaves ON chaves.jogo_id = jogos.id where chaves.jogo_id = jogos.id;
-
-CREATE VIEW visu_jogos AS
 SELECT
     jogos.nome,
     jogos.img,
@@ -156,12 +152,7 @@ GROUP BY
 
 
 
--- View visu_usuario
-CREATE VIEW visu_usuario AS
-SELECT usuarios.nome AS nome, usuarios.user AS user, usuarios.cpf AS cpf, usuarios.cep AS cep
-FROM usuarios;
-
---View chaves
+-- View chaves
 CREATE VIEW quant_chaves AS
 SELECT jogos.id AS jogo_id, jogos.nome AS nome_do_jogo, COUNT(chaves.chave) AS quantidade_de_chaves
 FROM jogos
@@ -190,6 +181,26 @@ END;
 //
 
 DELIMITER ;
+
+-- Evento para atualiza a idade todo o dia
+DELIMITER $$
+CREATE EVENT atualizar_idade_event
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+    UPDATE pessoas
+    SET idade = YEAR(CURDATE()) - YEAR(data_nascimento);
+    
+    /* Lógica para subtrair 1 da idade se necessário */
+    UPDATE pessoas
+    SET idade = idade - 1
+    WHERE
+        MONTH(CURDATE()) < MONTH(data_nascimento)
+        OR (MONTH(CURDATE()) = MONTH(data_nascimento) AND DAY(CURDATE()) < DAY(data_nascimento));
+END;
+$$
+DELIMITER ;
+
 
 -- INSERTS
 
