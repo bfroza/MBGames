@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     include("conexao.php");
 
-    $sql_select = "SELECT nome, img,plataforma, quantidade, price FROM `visu_jogos`";
+    $sql_select = "SELECT nome, desenvolvedor,anoLancamento, categoria, valor,quantidade,imagem FROM `visu_jogos_chaves`";
     $result = mysqli_query($conexao, $sql_select);
 
     if ($result) {

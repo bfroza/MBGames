@@ -8,8 +8,8 @@ USE MB_Games;
 CREATE TABLE Categorias (
   idCategorias INT NOT NULL AUTO_INCREMENT,
   categoria VARCHAR(45) NOT NULL,
-  PRIMARY KEY (idCategorias));
-
+  PRIMARY KEY (idCategorias)
+);
 
 INSERT INTO Categorias (categoria) VALUES
 ('Ação'),
@@ -23,7 +23,6 @@ INSERT INTO Categorias (categoria) VALUES
 ('Corrida'),
 ('Indie');
 
-
 -- -----------------------------------------------------
 -- Table Jogos
 -- -----------------------------------------------------
@@ -33,22 +32,22 @@ CREATE TABLE Jogos (
   desenvolvedor VARCHAR(45) NULL,
   anoLancamento YEAR(4) NULL,
   Categorias_idCategorias INT NOT NULL,
+  valor DECIMAL(10,2),
   imagem VARCHAR(255) NULL,
   PRIMARY KEY (idJogos),
   CONSTRAINT fk_Jogos_Categorias1
     FOREIGN KEY (Categorias_idCategorias)
     REFERENCES Categorias (idCategorias)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION
+);
 
-
-INSERT INTO Jogos (nome, desenvolvedor, anoLancamento, Categorias_idCategorias,imagem) VALUES
-('Grand Theft Auto V', 'Rockstar North', 2013, 1,"gta.jpg"),
-('Assassins Creed Rogue', 'Ubisoft', 2017, 2,"rougue.jfif"),
-('The Witcher 3: Wild Hunt', 'CD Projekt', 2015, 3,"thewitcher.jpg"),
-('Civilization VI', 'Firaxis Games', 2016, 4,"fifa.jpg"),
-('FIFA 22', 'EA Sports', 2021, 5,"fifa22.jpg");
-
+INSERT INTO Jogos (nome, desenvolvedor, anoLancamento, Categorias_idCategorias, valor, imagem) VALUES
+('Grand Theft Auto V', 'Rockstar North', 2013, 1, 55, 'gta.jpg'),
+('Assassins Creed Rogue', 'Ubisoft', 2017, 2, 90, 'rougue.jfif'),
+('The Witcher 3: Wild Hunt', 'CD Projekt', 2015, 3, 99, 'thewitcher.jpg'),
+('Civilization VI', 'Firaxis Games', 2016, 4, 76.6, 'fifa.jpg'),
+('FIFA 22', 'EA Sports', 2021, 5, 55.6, 'fifa22.jpg');
 
 -- -----------------------------------------------------
 -- Table Fornecedores
@@ -122,7 +121,7 @@ CREATE TABLE Vendas (
   idVendas INT NOT NULL AUTO_INCREMENT,
   data DATE NULL DEFAULT NOW(),
   valorTotal DECIMAL(10,2) NULL,
-  Cupons_idCupons INT NOT NULL,
+  Cupons_idCupons INT NULL,
   Usuarios_idUsuarios INT NOT NULL,
   PRIMARY KEY (idVendas),
   CONSTRAINT fk_Vendas_Cupons1
@@ -145,17 +144,17 @@ CREATE TABLE Chaves (
   idChaves INT NOT NULL AUTO_INCREMENT,
   chave VARCHAR(45) NULL,
   estoque TINYINT NOT NULL DEFAULT 1,
-  Jogos_Fornecedores_idJogos_Fornecedores INT NOT NULL,
   Vendas_idVendas INT NOT NULL,
+  Jogos_idJogos INT NOT NULL,
   PRIMARY KEY (idChaves),
-  CONSTRAINT fk_Chaves_Jogos_Fornecedores1
-    FOREIGN KEY (Jogos_Fornecedores_idJogos_Fornecedores)
-    REFERENCES Jogos_Fornecedores (idJogos_Fornecedores)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT fk_Chaves_Vendas1
+  CONSTRAINT fk_Chaves_Vendas
     FOREIGN KEY (Vendas_idVendas)
     REFERENCES Vendas (idVendas)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_Chaves_Jogos
+    FOREIGN KEY (Jogos_idJogos)
+    REFERENCES Jogos (idJogos)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
@@ -166,29 +165,19 @@ CREATE TABLE Chaves (
 -- VIEWS
 
 
-CREATE VIEW ViewJogosDetalhados
+CREATE VIEW Jogos_Categorias_View AS
 SELECT
-    Jogos.idJogos,
-    Jogos.nome,
-    Jogos.desenvolvedor,
-    Jogos.anoLancamento,
-    Categorias.categoria,
-    Fornecedores.nome,
-    Jogos_Fornecedores.valor,
-    Jogos_Fornecedores.imagem,
-    Categorias.idCategorias,
-    Fornecedores.idFornecedores,
-    Categorias.idCategorias,
-    Jogos_Fornecedores.idJogos_Fornecedores,
-    Categorias.idCategorias,
-    Categorias.idCategorias
+    J.idJogos,
+    J.nome AS nome_do_jogo,
+    J.desenvolvedor,
+    J.anoLancamento,
+    C.idCategorias,
+    C.categoria AS nome_da_categoria,
+    J.valor,
+    J.imagem
 FROM
-    Jogos
-JOIN
-    Categorias ON Jogos.Categorias_idCategorias = Categorias.idCategorias
-JOIN
-    Jogos_Fornecedores ON Jogos.idJogos = Jogos_Fornecedores.Jogos_idJogos
-JOIN
-    Fornecedores ON Jogos_Fornecedores.Fornecedores_idFornecedores = Fornecedores.idFornecedores
-JOIN
-    Chaves ON Jogos_Fornecedores.idJogos_Fornecedores = Chaves.Jogos_Fornecedores_idJogos_Fornecedores;
+    Jogos AS J
+INNER JOIN
+    Categorias AS C
+ON
+    J.Categorias_idCategorias = C.idCategorias;

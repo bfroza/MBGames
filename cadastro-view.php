@@ -48,24 +48,25 @@
                     <select id="categoria" name="categoria" required>
                         <option value="" disabled selected>Selecione a Categoria</option>
                         <?php
-                            // Conecte ao banco de dados e consulte as categorias
-                            $conn = new mysqli("localhost", "root", "", "mb_games");
-                            if ($conn->connect_error) {
+                        // Conecte ao banco de dados e consulte as categorias
+                        $conn = new mysqli("localhost", "root", "", "mb_games");
+                        if ($conn->connect_error) {
                             die("Falha na conexão com o banco de dados: " . $conn->connect_error);
-                            }
+                        }
 
-                            $sql = "SELECT *  FROM categorias";
-                            $result = $conn->query($sql);
+                        $sql = "SELECT *  FROM categorias";
+                        $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
+                        if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . $row['idCategoria'] . "'>" . $row['categoria'] . "</option>";
+                                echo "<option value='" . $row['categoria'] . "'>" . $row['categoria'] . "</option>";
                             }
-                            }
+                        }
 
-                            $conn->close();
+                        $conn->close();
                         ?>
                     </select>
+                    <input type="number" id="valor" name="valor"  placeholder="Preço do jogo" required>
                     <input type="file" id="imagem" name="imagem" placeholder="Imagem do jogo">
                 </div>
                 <button class="button" type="submit">Cadastrar Jogo</button>
@@ -73,9 +74,9 @@
             
             <div class="li-icons">
                 <ul>
-                  <li><a href="#"><img src="img/jogos.png" alt="img pc" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/botoes.png" alt="img playstation" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/xbox.png" alt="img xbox" width="30px" height="30px"></a></li>
+                  <li><a href="#"><img src="img/atualizar.png" alt="img pc" width="30px" height="30px"></a></li>
+                  <li><a href="#"><img src="img/excluir.png" alt="img playstation" width="30px" height="30px"></a></li>
+                 
                 </ul>
               </div>
     
