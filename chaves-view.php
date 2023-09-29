@@ -35,27 +35,27 @@
                 <h1>Cadastro de Chaves</h1>
             </div>
             <form action="cadastro-chaves.php" method="post">
+               
                 <div class="inputs">
-                    <select name="jogo_id" required>
-                        <option value="" disabled selected>Selecione o Jogo</option>
-                        <?php
-                            // Conecte ao banco de dados e consulte os jogos cadastrados
-                            $conn = new mysqli("localhost", "root", "", "mb");
-                            if ($conn->connect_error) {
-                                die("Falha na conexão com o banco de dados: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT id, nome FROM jogos";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
-                                }
-                            }
-
-                            $conn->close();
-                        ?>
+                 <select name="Jogos_idJogos " id="Jogos_idJogos"required>
+                 <option value="" disabled selected>Selecione o Jogo</option>
+                    <?php
+                     // Conecte ao banco de dados e consulte os jogos cadastrados
+                     $conn = new mysqli("localhost", "root", "", "mb_games");
+                     if ($conn->connect_error) {
+                         die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+                     }
+                     $sql = "SELECT idJogos, nome FROM jogos  ORDER BY nome";
+                     $result = $conn->query($sql);
+                     if ($result->num_rows > 0) {
+                         while ($row = $result->fetch_assoc()) {
+                             echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
+                         }
+                     }
+                     $conn->close();
+                 
+             
+                      ?>
                     </select>
                     <textarea name="chaves" cols="49" rows="10" placeholder="Digite as chaves"></textarea>
                 </div>

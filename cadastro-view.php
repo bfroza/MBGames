@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Jogos</title>
-   
-</head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <script>
@@ -15,6 +13,7 @@
             $('#price').inputmask('R$ 999.99'); 
         });
     </script>
+</head>
 <body>
     <div class="cabecalho">
         <nav>
@@ -28,11 +27,10 @@
                     <li class="botao"><a href="login.html" target="_blank">ENTRAR</a></li>
                 </ul>
             </div>
-           
         </nav>   
         <div class="logo">
             <a href="index.php"><img src="img/desenvolvimento-de-jogos.png" alt="Logo">  </a>
-            <H1>MB GAMES</H1>
+            <h1>MB GAMES</h1>
         </div>
     </div>
     <div class="corpo-form">
@@ -45,7 +43,7 @@
                     <input type="text" id="nome" name="nome" placeholder="Nome do jogo" required>
                     <input type="text" id="desenvolvedor" name="desenvolvedor"  placeholder="Desenvolvedor" required>
                     <input type="text" id="anoLancamento" name="anoLancamento"  placeholder="Ano de lançamento do jogo" required>
-                    <select id="categoria" name="categoria" required>
+                    <select id="categoria_id" name="Categorias_idCategorias" required>
                         <option value="" disabled selected>Selecione a Categoria</option>
                         <?php
                         // Conecte ao banco de dados e consulte as categorias
@@ -54,12 +52,33 @@
                             die("Falha na conexão com o banco de dados: " . $conn->connect_error);
                         }
 
-                        $sql = "SELECT *  FROM categorias";
+                        $sql = "SELECT idCategorias, categoria FROM categorias ORDER BY categoria ";
                         $result = $conn->query($sql);
 
                         if ($result->num_rows > 0) {
                             while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . $row['categoria'] . "'>" . $row['categoria'] . "</option>";
+                                echo "<option value='" . $row['idCategorias'] . "'>" . $row['categoria'] . "</option>";
+                            }
+                        }
+
+                        $conn->close();
+                        ?>
+                    </select>
+                    <select id="fornecedor_id" name="Fornecedores_idFornecedores" required>
+                        <option value="" disabled selected>Selecione o Fornecedor</option>
+                        <?php
+                        // Conecte ao banco de dados e consulte os fornecedores
+                        $conn = new mysqli("localhost", "root", "", "mb_games");
+                        if ($conn->connect_error) {
+                            die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+                        }
+
+                        $sql = "SELECT idFornecedores, nome FROM fornecedores ORDER BY nome";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['idFornecedores'] . "'>" . $row['nome'] . "</option>";
                             }
                         }
 
@@ -71,20 +90,13 @@
                 </div>
                 <button class="button" type="submit">Cadastrar Jogo</button>
             </form>
-            
             <div class="li-icons">
                 <ul>
-                  <li><a href="#"><img src="img/atualizar.png" alt="img pc" width="30px" height="30px"></a></li>
-                  <li><a href="#"><img src="img/excluir.png" alt="img playstation" width="30px" height="30px"></a></li>
-                 
+                    <li><a href="#"><img src="img/atualizar.png" alt="img pc" width="30px" height="30px"></a></li>
+                    <li><a href="#"><img src="img/excluir.png" alt="img playstation" width="30px" height="30px"></a></li>
                 </ul>
-              </div>
-    
+            </div>
         </div>
     </div>
-    
 </body>
 </html>
-
-
-

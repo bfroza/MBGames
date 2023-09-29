@@ -1,34 +1,47 @@
 <?php
-include("conexao.php");
-
-$jogo_id = $_POST['jogo_id'];
-$chaves = trim($_POST['chaves']);
-
-// Quebre as chaves em um array separando-as por quebras de linha
-$chave_array = preg_split('/\R/', $chaves, -1, PREG_SPLIT_NO_EMPTY);
-
-// Insira cada chave no banco de dados com um ID diferente
-foreach ($chave_array as $chave) {
-    $inserir_sql = "INSERT INTO chaves (jogo_id, chave) VALUES (?, ?)";
-    $inserir_stmt = mysqli_prepare($conexao, $inserir_sql);
-    mysqli_stmt_bind_param($inserir_stmt, "is" , $jogo_id, $chave); // os 'is'referece a i de integer e s de string 
-
-    if (mysqli_stmt_execute($inserir_stmt)) {
-        // Chave cadastrada com sucesso
-        echo "<script>
-                alert('Chave cadastrada com sucesso!');
-                window.location.href = 'cadastro-view.php'; // Redireciona para a página de cadastro
-              </script>";
+// Verifique se o formulário foi submetido
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Verifique se os campos obrigatórios estão definidos e não vazios
+        $conn = new mysqli("localhost", "root", "", "mb_games");
+        
+        // Verifique a conexão com o banco de dados
+        if ($conn->connect_error) {
+            die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+        }
+        
+        // Prepare os dados para inserção
+        $Jogos_idJogos  = $_POST["Jogos_idJogos"];
+        $chaves = trim($_POST["chaves"]);
+        $Jogos_Fornecedores_idJogos_Fornecedores = trim($_POST["Jogos_Fornecedores_idJogos_Fornecedores"]);
+        $chave_array = preg_split('/\R/', $chaves, -1, PREG_SPLIT_NO_EMPTY);
+        
+        // Insira cada chave no banco de dados com o jogo selecionado
+        foreach ($chave_array as $chave) {
+            $estoque = 1;
+            $sql = "INSERT INTO Chaves (Jogos_idJogos, chave, estoque,Jogos_Fornecedores_idJogos_Fornecedores) VALUES (?, ?, ?,?)";
+            $stmt = $conn->prepare($sql);
+            
+            // Suponha que o estoque seja definido como 1 por padrão, você pode ajustar conforme necessário
+            $estoque = 1;
+            
+            $stmt->bind_param("isii", $Jogos_idJogos , $chave, $estoque,$Jogos_Fornecedores_idJogos_Fornecedores);
+            
+            if ($stmt->execute()) {
+                // Chave cadastrada com sucesso
+                echo "Chave cadastrada com sucesso.";
+            } else {
+                // Erro ao cadastrar a chave
+                echo "Erro ao cadastrar a chave: " . $stmt->error;
+            }
+            
+            $stmt->close();
+        }
+        
+        // Feche a conexão com o banco de dados
+        $conn->close();
     } else {
-        // Erro ao cadastrar a chave
-        echo "<script>
-                alert('Erro ao cadastrar a chave: " . mysqli_error($conexao) . "');
-                window.location.href = 'cadastro-view.php'; // Redireciona para a página de cadastro
-              </script>";
+        // Campos obrigatórios não foram preenchidos
+        echo "Por favor, preencha todos os campos obrigatórios.";
     }
 
-    mysqli_stmt_close($inserir_stmt);
-}
-
-mysqli_close($conexao);
 ?>

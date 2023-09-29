@@ -80,57 +80,7 @@ $dados = mysqli_fetch_array($sql_query_acesso)
             <hr>
             <div class="sb-sidenav-menu-heading nav-title" style="font-size:15px;">Modulos</div>
             <hr>
-            <?php
-            if ($dados['acesso_estoque'] == 's') { ?>
-
-              <a class="nav-link" href="pag_estoque.php">
-                <div class="sb-nav-link-icon"> <i class="fa fa-boxes"></i></div>
-                Estoque
-              </a>
-
-            <?php }
-            if ($dados['acesso_clientes'] == 's') { ?>
-
-              <a class="nav-link" href="clientes.php">
-                <div class="sb-nav-link-icon"> <i class="fa fa-users"></i></div>
-                Clientes
-              </a>
-
-            <?php }
-            if ($dados['acesso_funcionarios'] == 's') { ?>
-
-              <a class="nav-link" href="funcionarios.php">
-                <div class="sb-nav-link-icon"> <i class="fa fa-address-card"></i></div>
-                Funcionários
-              </a>
-
-            <?php }
-            if ($dados['acesso_vendas'] == 's') {  ?>
-
-              <a class="nav-link" href="pag_vendas.php">
-                <div class="sb-nav-link-icon"> <i class="fa fa-dollar-sign"></i></div>
-                Vendas
-              </a>
-
-            <?php }
-            if ($dados['acesso_niveis'] == 's') { ?>
-
-              <a class="nav-link" href="pag_niveis_acesso_listar.php">
-                <div class="sb-nav-link-icon"> <i class="fa fa-shield-alt"></i></div>
-                Níveis de Acesso
-              </a>
-
-            <?php }
-            if ($dados['acesso_relatorios'] == 's') { ?>
-
-              <a class="nav-link" href="relatorios.php">
-                <div class="sb-nav-link-icon"> <i class="fa fa-file"></i></div>
-                Relatórios
-              </a>
-
-            <?php
-            }
-            ?>
+            
             <hr>
           </div>
         </div>

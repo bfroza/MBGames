@@ -39,30 +39,10 @@
             <div class="cadastro-h1">
                 <h1>Cadastro de Fornecedores</h1>
             </div>
-            <form action="cadastro.php" method="post">
+            <form action="fornecedor.php" method="post">
                 <div class="inputs">
-                    <input type="text" id="nome" name="nome" placeholder="Nome do jogo" required>
-                    <select id="jogo" name="jogo" required>
-                        <option value="" disabled selected>Selecione o Jogo</option>
-                        <?php
-                            // Conecte ao banco de dados e consulte as categorias
-                            $conn = new mysqli("localhost", "root", "", "mb_games");
-                            if ($conn->connect_error) {
-                            die("Falha na conexão com o banco de dados: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT idJogos,nome  FROM Jogos";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<option value='" . $row['idJogos'] . "'>" . $row['nome'] . "</option>";
-                            }
-                            }
-
-                            $conn->close();
-                        ?>
-                    </select>
+                    <input type="text" id="nome" name="nome" placeholder="Nome do Fornecedor" required>
+                    <input type="text" id="linkSite" name="linkSite" placeholder="Link do Site" required>
     
                 </div>
                 <button class="button" type="submit">Cadastrar Fornecedor</button>
