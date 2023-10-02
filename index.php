@@ -40,7 +40,7 @@
     <?php
     include("conexao.php");
 
-    $sql_select = "SELECT nome, img, quantidade, price FROM `visu_jogos`";
+    $sql_select = "SELECT nome, ImagemDoJogo, quantidade,desenvolvedor,anoLancamento, valor FROM `visu_jogos`";
     $result = mysqli_query($conexao, $sql_select);
 
     if ($result) {
@@ -63,8 +63,10 @@
             echo '<form method="POST" action="vendas.php">';
             
             $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
-            echo '<a href="jogos.php"><img src="' .$img. $row['img'] . '" alt="" height="470" width="270" class="img" ' . $filtroSaturacao . '></a>';
+            echo '<a href="jogos.php"><img src="' .$img. $row['ImagemDoJogo'] . '" alt="" height="470" width="270" class="img" ' . $filtroSaturacao . '></a>';
             echo '<p>' . $row['nome'] . '</p>';
+            echo '<p>' . $row['desenvolvedor'] . '</p>';
+            echo '<p>' . $row['anoLancamento'] . '</p>';
            
 
           

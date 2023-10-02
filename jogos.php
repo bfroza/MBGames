@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php
     include("conexao.php");
 
-    $sql_select = "SELECT nome, desenvolvedor,anoLancamento, categoria, valor,quantidade,imagem FROM `visu_jogos_chaves`";
+    $sql_select = "SELECT nome, desenvolvedor,anoLancamento, Nomecategoria,NomeFornecedor, valor,ImagemDoJogo,quantidade FROM `visu_jogos`";
     $result = mysqli_query($conexao, $sql_select);
 
     if ($result) {
@@ -76,13 +76,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
             // Aplicar o filtro de saturação à imagem quando a quantidade for 0
             $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
-            echo '<a href="#"><img src="' . $img . $row['img'] . '" alt="" height="470" width="270" class="img ' . $classeCSS . '" ' . $filtroSaturacao . '></a>';
+            echo '<a href="#"><img src="' . $img . $row['ImagemDoJogo'] . '" alt="" height="470" width="270" class="img ' . $classeCSS . '" ' . $filtroSaturacao . '></a>';
+
         
             echo '<p>' . $row['nome'] . '</p>';
             echo '<p>Quantidade disponível: ' . $row['quantidade'] . '</p>';
-            echo '<p>Preço: R$ ' . $row['price'] . '</p>';
-            echo '<p>' . $row['plataforma'] . '</p>';
-            echo '<p>' . $row['plataforma'] . '</p>';
+            echo '<p>Preço: R$ ' . $row['valor'] . '</p>';
+            echo '<p>' . $row['desenvolvedor'] . '</p>';
+            echo '<p>' . $row['anoLancamento'] . '</p>';
+            echo '<p>' . $row['Nomecategoria'] . '</p>';
+            echo '<p>' . $row['NomeFornecedor'] . '</p>';
         
             echo '<label for="quantidade">Selecione a quantidade:</label>';
         

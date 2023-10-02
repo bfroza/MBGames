@@ -24,7 +24,7 @@ function verificarDuplicacao(campo, valor) {
             $.ajax({
                 type: "POST",
                 url: "verificar_duplicacao.php",
-                data: { campo: campo, valor: valor },
+                dataNascimento: { campo: campo, valor: valor },
                 success: function(response) {
                     if (response === "existe") {
                         $("#" + campo + "Warning").text("Esse " + campo + " já está em uso. Por favor, escolha outro.");
@@ -58,8 +58,7 @@ function verificarDuplicacao(campo, valor) {
                   $('#cep').inputmask('99999-999');
                 });
               </script>
-              <input type="text" id="cep" name="cep" placeholder="Seu CEP" required>
-              <input type="date" id="data" name="data" placeholder="Data de Nascimento" required>
+              <input type="date" id="dataNascimento" name="dataNascimento" placeholder="Data de Nascimento" required>
               <input type="password" id="senha" name="senha" placeholder="Sua senha" required minlength="8">
           </div>
           <button class="button" type="submit">Criar Conta</button>

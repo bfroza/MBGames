@@ -47,7 +47,12 @@
                 </div>
                 <button class="button" type="submit">Cadastrar Fornecedor</button>
             </form>
-            
+            <div class="li-icons">
+                <ul>
+                    <li><a href="fornecedor-update-view.php"><img src="img/atualizar.png" alt="img pc" width="30px" height="30px"></a></li>
+                    <li><a href="fornecedor-delete-view.php"><img src="img/excluir.png" alt="img playstation" width="30px" height="30px"></a></li>
+                </ul>
+            </div>
     
         </div>
     </div>

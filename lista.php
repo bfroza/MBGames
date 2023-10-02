@@ -3,7 +3,7 @@
 include("conexao.php");
 
 // Execute uma consulta na tabela visu_jogos
-$sql = "SELECT nome, plataforma, price, quantidade, img FROM visu_jogos";
+$sql = "SELECT nome,  valor, quantidade, ImagemDoJogo FROM visu_jogos_lista";
 $result = mysqli_query($conexao, $sql);
 
 // Verifique se há erros na consulta
@@ -43,7 +43,6 @@ if (!$result) {
                                 <thead>
                                     <tr>
                                         <th scope="col">Nome</th>
-                                        <th scope="col">Plataforma</th>
                                         <th scope="col">Quantidade</th>
                                         <th scope="col">Preço</th>
                                         <th scope="col">Preço Total</th>
@@ -54,17 +53,16 @@ if (!$result) {
                                     <?php
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $caminhoParaImagens = "img/";
-                                        $urlDaImagem = $caminhoParaImagens . $row['img'];
+                                        $urlDaImagem = $caminhoParaImagens . $row['ImagemDoJogo'];
                                     
                                         // Adicione a condição if para verificar se a quantidade é maior que 0
                                         if ($row['quantidade'] > 0) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $row['nome']; ?></td>
-                                                <td><?php echo $row['plataforma']; ?></td>
                                                 <td><?php echo $row['quantidade']; ?></td>
-                                                <td><?php echo 'R$' . $row['price']; ?></td>
-                                                <td><?php echo 'R$' . $row['price'] * $row['quantidade']; ?></td>
+                                                <td><?php echo 'R$' . $row['valor']; ?></td>
+                                                <td><?php echo 'R$' . $row['valor'] * $row['quantidade']; ?></td>
                                             </tr>
                                             <?php
                                         }

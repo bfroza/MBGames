@@ -85,15 +85,15 @@
                         $conn->close();
                         ?>
                     </select>
-                    <input type="number" id="valor" name="valor"  placeholder="Preço do jogo" required>
+                    <input type="number" id="valor" name="valor" step="0.01" placeholder="Preço do jogo" required>
                     <input type="file" id="imagem" name="imagem" placeholder="Imagem do jogo">
                 </div>
                 <button class="button" type="submit">Cadastrar Jogo</button>
             </form>
             <div class="li-icons">
                 <ul>
-                    <li><a href="#"><img src="img/atualizar.png" alt="img pc" width="30px" height="30px"></a></li>
-                    <li><a href="#"><img src="img/excluir.png" alt="img playstation" width="30px" height="30px"></a></li>
+                    <li><a href="cadastro-update-view.php"><img src="img/atualizar.png" alt="img pc" width="30px" height="30px"></a></li>
+                    <li><a href="cadastro-delete-view.php"><img src="img/excluir.png" alt="img playstation" width="30px" height="30px"></a></li>
                 </ul>
             </div>
         </div>
