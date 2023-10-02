@@ -14,10 +14,10 @@
         <nav>
             <div class="lista">
             <ul>
-                <li><a href="index.php">HOME</a></li>
+                <li><a href="index.php">INÍCIO</a></li>
                 <li><a href="jogos.php">JOGOS</a></li>
                 <li><a href="cadastro-view.php">CADASTRO</a></li>
-                <li><a href="platafoma.php">PLATAFORMAS</a></li>
+                <li><a href="lista-fornecedor.php">LISTA FORNECEDORES</a></li>
                 <?php 
                      include("conexao.php");
                     if ($loginResult != 'success' || $logado != true) {
@@ -40,8 +40,11 @@
     <?php
     include("conexao.php");
 
-    $sql_select = "SELECT nome, ImagemDoJogo, quantidade,desenvolvedor,anoLancamento, valor FROM `visu_jogos`";
+    $sql_select = "SELECT nome, ImagemDoJogo, SUM(quantidade) as quantidade, desenvolvedor, anoLancamento, valor 
+    FROM `visu_jogos` 
+    GROUP BY nome, ImagemDoJogo, desenvolvedor, anoLancamento, valor";
     $result = mysqli_query($conexao, $sql_select);
+
 
     if ($result) {
         $counter = 0; 

@@ -9,26 +9,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       die("Falha na conexão com o banco de dados: " . $conn->connect_error);
   }
 
-  // Chame a procedure de exclusão
-  $sql = "CALL ExcluirJogo(?)";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $jogo_id);
+  // Primeiro, exclua o registro da tabela "Chaves"
+  $sql1 = "DELETE FROM Chaves WHERE Jogos_idJogos = ?";
+  $stmt1 = $conn->prepare($sql1);
+  $stmt1->bind_param("i", $jogo_id);
 
-  if ($stmt->execute()) {
-    echo  "<script>
-    alert('Jogo deletado com sucesso!!.');
-    window.location.href = 'cadastro-view.php'; // Redireciona para a página de cadastro
-    </script>";
+  if ($stmt1->execute()) {
+    // Em seguida, chame a stored procedure para excluir o jogo
+    $sql2 = "CALL ExcluirJogo(?)";
+    $stmt2 = $conn->prepare($sql2);
+    $stmt2->bind_param("i", $jogo_id);
+
+    if ($stmt2->execute()) {
+      echo "<script>
+      alert('Jogo e chave deletados com sucesso.');
+      window.location.href = 'cadastro-view.php'; // Redireciona para a página de cadastro
+      </script>";
+    } else {
+      echo "<script>
+      alert('Erro ao excluir o jogo e a chave.');
+      window.location.href = 'cadastro-view.php'; // Redireciona para a página de cadastro
+      </script>";
+    }
+
+    $stmt2->close();
   } else {
-    echo  "<script>
-    alert('Jogo deletado com sucesso!!.');
+    echo "<script>
+    alert('Erro ao excluir a chave.');
     window.location.href = 'cadastro-view.php'; // Redireciona para a página de cadastro
     </script>";
   }
 
-  $stmt->close();
+  $stmt1->close();
   $conn->close();
 }
-
-
 ?>

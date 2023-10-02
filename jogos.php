@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $classeCSS = ($row['quantidade'] == 0) ? 'jogo-sem-estoque' : '';
         
             echo '<li>';
-            echo '<form method="POST" action="vendas.php">';
+            echo '<form method="POST" action="carrinho.html">';
         
             // Aplicar o filtro de saturação à imagem quando a quantidade for 0
             $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';

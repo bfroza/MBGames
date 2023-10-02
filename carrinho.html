@@ -26,7 +26,7 @@
         <table>
           <thead>
             <tr>
-              <th>Produto</th>
+              <th>Nome do Jogo</th>
               <th>Preço</th>
               <th>Quantidade</th>
               <th>Total</th>
@@ -34,30 +34,67 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <div class="product">
-                  <img src="https://picsum.photos/100/120" alt="" />
-                  <div class="info">
-                    <div class="name">Nome do produto</div>
-                    <div class="category">Categoria</div>
-                  </div>
-                </div>
-              </td>
-              <td>R$ 120</td>
-              <td>
-                <div class="qty">
-                  <button class="decrement"><i class="bx bx-minus"></i></button>
-                  <span class="quantity">1</span>
-                  <button class="increment"><i class="bx bx-plus"></i></button>
-                </div>
-              </td>
-              <td>R$ 240</td>
-              <td>
-                <button class="remove"><i class="bx bx-x"></i></button>
-              </td>
-            </tr>
-            <!-- Outras linhas de produtos aqui -->
+            <?php
+            include("conexao.php");
+
+            $loginResult = ""; 
+            $logado = false;
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+                $user = trim($_POST['user']);
+                $senha = trim($_POST['senha']);
+
+                $sql = "SELECT * FROM usuarios WHERE user= '$user' AND senha = '$senha'";
+                $result = mysqli_query($conexao, $sql);
+                if (mysqli_num_rows($result) == 1){
+                    $loginResult = "success";
+                    header("Location: index.php");
+                    $logado = true;
+                    exit;
+                }
+                else{
+                }
+            }
+
+            $sql_select = "SELECT nome, desenvolvedor, anoLancamento, Nomecategoria, NomeFornecedor, valor, ImagemDoJogo, quantidade FROM `visu_jogos`";
+            $result = mysqli_query($conexao, $sql_select);
+
+            if ($result) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    // Calcula o total para cada jogo
+                    $total = $row['valor'] * $_POST['quantidade'];
+
+                    echo '<tr>';
+                    echo '<td>';
+                    echo '<div class="product">';
+                    echo '<img src="' . $row['ImagemDoJogo'] . '" alt="" />';
+                    echo '<div class="info">';
+                    echo '<div class="name">' . $row['nome'] . '</div>';
+                    echo '<div class="category">' . $row['Nomecategoria'] . '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</td>';
+                    echo '<td>R$ ' . number_format($row['valor'], 2, ',', '.') . '</td>';
+                    echo '<td>';
+                    echo '<div class="qty">';
+                    echo '<button class="decrement"><i class="bx bx-minus"></i></button>';
+                    echo '<span class="quantity">' . $_POST['quantidade'] . '</span>';
+                    echo '<button class="increment"><i class="bx bx-plus"></i></button>';
+                    echo '</div>';
+                    echo '</td>';
+                    echo '<td>R$ ' . number_format($total, 2, ',', '.') . '</td>';
+                    echo '<td>';
+                    echo '<button class="remove"><i class="bx bx-x"></i></button>';
+                    echo '</td>';
+                    echo '</tr>';
+                }
+
+                mysqli_free_result($result);
+            } else {
+                echo "Erro ao recuperar jogos do banco de dados: " . mysqli_error($conexao);
+            }
+
+            mysqli_close($conexao);
+            ?>
           </tbody>
         </table>
       </section>
@@ -65,7 +102,15 @@
         <div class="box">
           <header>Resumo da compra</header>
           <div class="info">
-            <div><span>Sub-total</span><span>R$ 418</span></div>
+            <?php
+            // Calcula o subtotal da compra com base nos totais de cada jogo
+            $subtotal = 0;
+            foreach ($result as $row) {
+                $subtotal += $row['valor'] * $_POST['quantidade'];
+            }
+            ?>
+
+            <div><span>Sub-total</span><span>R$ <?php echo number_format($subtotal, 2, ',', '.'); ?></span></div>
             
             <div>
               <button>
@@ -78,7 +123,7 @@
           </div>
           <footer>
             <span>Total</span>
-            <span>R$ 418</span>
+            <span>R$ <?php echo number_format($subtotal, 2, ',', '.'); ?></span>
           </footer>
         </div>
         <button>Finalizar Compra</button>

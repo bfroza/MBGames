@@ -71,8 +71,8 @@ CREATE TABLE Jogos (
 
 -- Inserir valores base na tabela Jogos
 INSERT INTO Jogos (nome, desenvolvedor, anoLancamento, Categorias_idCategorias, Fornecedores_idFornecedores, valor, imagem) VALUES
-('Grand Theft Auto V', 'Rockstar North', 2013, 1, 1, 55, 'gta.jpg'),
-('Assassins Creed Rogue', 'Ubisoft', 2017, 2, 3, 90, 'rougue.jfif'),
+('Grand Theft Auto V', 'Rockstar North', 2013, 1, 1, 55, 'gta.jfif'),
+('Assassins Creed Rogue', 'Ubisoft', 2017, 2, 3, 90, 'rogue.jfif'),
 ('The Witcher 3: Wild Hunt', 'CD Projekt', 2015, 3, 2, 99, 'thewitcher.jfif'),
 ('Civilization VI', 'Firaxis Games', 2016, 4, 1, 76.6, 'civ.jpg'),
 ('FIFA 22', 'EA Sports', 2021, 5, 1, 55.6, 'fifa.jfif');
@@ -208,7 +208,8 @@ INNER JOIN
 ON
     J.Categorias_idCategorias = C.idCategorias;
 
--- View para página index
+-- View para página index e jogos
+
 CREATE VIEW visu_jogos AS
 SELECT
     Jogos.idJogos,
@@ -219,7 +220,9 @@ SELECT
     Fornecedores.nome AS NomeFornecedor,
     Jogos.valor,
     Jogos.imagem AS ImagemDoJogo,
-    COUNT(Chaves.idChaves) AS Quantidade
+    COUNT(Chaves.idChaves) AS Quantidade,
+    MAX(Chaves.chave) AS Chave,
+    MAX(Usuarios.idUsuarios) AS IDUsuario
 FROM
     Jogos
 INNER JOIN
@@ -228,12 +231,15 @@ INNER JOIN
     Fornecedores ON Jogos.Fornecedores_idFornecedores = Fornecedores.idFornecedores
 LEFT JOIN
     Chaves ON Jogos.idJogos = Chaves.Jogos_idJogos
+LEFT JOIN
+    Vendas ON Vendas.Chaves_idChaves = Chaves.idChaves
+LEFT JOIN
+    Usuarios ON Vendas.Usuarios_idUsuarios = Usuarios.idUsuarios
 WHERE
     Chaves.estoque = 1
 GROUP BY
-    Jogos.idJogos, Jogos.nome, Jogos.desenvolvedor, Jogos.anoLancamento, Categorias.categoria, Fornecedores.nome, Jogos.valor, Jogos.imagem
-ORDER BY
-    Jogos.nome;
+    Jogos.nome, Jogos.desenvolvedor, Jogos.anoLancamento, Categorias.categoria, Fornecedores.nome, Jogos.valor, Jogos.imagem;
+
 
 
 -- View para a lista
@@ -262,6 +268,28 @@ GROUP BY
     Jogos.idJogos, Jogos.nome, Jogos.desenvolvedor, Jogos.anoLancamento, Categorias.categoria, Fornecedores.nome, Jogos.valor, Jogos.imagem
 ORDER BY
     Quantidade DESC, Jogos.nome; -- Agora estamos ordenando por Quantidade em ordem decrescente e, em caso de empate, por nome do jogo em ordem alfabética
+
+
+
+
+CREATE VIEW visu_jogos_customizada AS
+SELECT
+    idJogos,
+    nome,
+    desenvolvedor,
+    anoLancamento,
+    NomeCategoria,
+    NomeFornecedor,
+    valor,
+    ImagemDoJogo,
+    Quantidade,
+    Chave,
+    IDUsuario
+FROM
+    visu_jogos
+ORDER BY
+    NomeFornecedor ASC,
+    Quantidade;
 
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------

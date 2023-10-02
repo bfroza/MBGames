@@ -3,7 +3,7 @@
 include("conexao.php");
 
 // Execute uma consulta na tabela visu_jogos
-$sql = "SELECT nome,quantidade,plataforma FROM plataforma_jogos";
+$sql = "SELECT nome,Quantidade,NomeFornecedor FROM visu_jogos_customizada";
 $result = mysqli_query($conexao, $sql);
 
 // Verifique se há erros na consulta
@@ -31,7 +31,7 @@ if (!$result) {
 </head>
 <body>
 
-    <h1>Lista quantitativa de jogos</h1>
+    <h1>Lista de jogos por fornecedor</h1>
 
     <div class="container-fluid">
         <div class="row">
@@ -44,7 +44,7 @@ if (!$result) {
                                     <tr>
                                         <th scope="col">Nome</th>
                                         <th scope="col">Quantidade</th>
-                                        <th scope="col">Plataforma</th>
+                                        <th scope="col">Fornecedor</th>
                             
                                 
                                     </tr>
@@ -56,8 +56,8 @@ if (!$result) {
                                         ?>
                                         <tr>
                                             <td><?php echo $row['nome']; ?></td>
-                                            <td><?php echo $row['quantidade']; ?></td> 
-                                            <td><?php echo $row['plataforma']; ?></td>
+                                            <td><?php echo $row['Quantidade']; ?></td> 
+                                            <td><?php echo $row['NomeFornecedor']; ?></td>
                                             
                                             
                                         <?php
@@ -124,5 +124,4 @@ document.getElementById("btnRelatorio").addEventListener("click", function() {
     printWindow.print();
 });
 </script>
-
 
