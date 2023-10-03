@@ -11,6 +11,10 @@ $subtotal = 0;
 $total = 0;
 $desconto = 0;
 
+$idJogo = 0;
+$Chaves_idChaves = 0;
+$valorTotal = 0;
+
 $idCupom = 2;
 $idUsuario = 1;
 

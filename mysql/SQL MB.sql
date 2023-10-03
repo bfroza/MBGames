@@ -306,19 +306,22 @@ ORDER BY
     Quantidade;
 
 
-CREATE VIEW ViewChaves AS
+CREATE VIEW ViewChavesComData AS
 SELECT
     c.idChaves,
     c.chave,
     c.estoque,
     c.Fornecedores_idFornecedores,
     c.Jogos_idJogos,
-    j.nome AS nomeJogo
+    j.nome AS nomeJogo,
+    v.idVendas AS idVenda,
+    v.data AS dataVenda
 FROM
     Chaves AS c
 JOIN
-    Jogos AS j ON c.Jogos_idJogos = j.idJogos;
-
+    Jogos AS j ON c.Jogos_idJogos = j.idJogos
+LEFT JOIN
+    Vendas AS v ON c.idChaves = v.Chaves_idChaves;
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
 

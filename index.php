@@ -18,6 +18,7 @@
                 <li><a href="jogos.php">JOGOS</a></li>
                 <li><a href="cadastro-view.php">CADASTRO</a></li>
                 <li><a href="lista-fornecedor.php">LISTA FORNECEDORES</a></li>
+                <li><a href="lista-vendas.php">LISTA VENDAS</a></li>
                 <?php 
                      include("conexao.php");
                     if ($loginResult != 'success' || $logado != true) {
