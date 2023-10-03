@@ -1,6 +1,11 @@
 <?php
 include("conexao.php");
 
+
+if (!isset($_SESSION['carrinho'])) {
+    $_SESSION['carrinho'] = array();
+}
+
 $loginResult = ""; 
 $logado = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -39,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="jogos.php">JOGOS</a></li>
                     <li><a href="lista.php">LISTA</a></li>
                     <li><a href="cadastro-view.php">CADASTRO</a></li>
-                    <li><a href="carrinho.html"><i class="fas fa-shopping-cart" style="color: #FFFFFF;"></i></a></li>
+                    <li><a href="carrinho-view.php"><i class="fas fa-shopping-cart" style="color: #FFFFFF;"></i></a></li>
                 </ul>
             </div>
         </nav>   
@@ -51,34 +56,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <?php
     include("conexao.php");
-
-    $sql_select = "SELECT nome, desenvolvedor,anoLancamento, Nomecategoria,NomeFornecedor, valor,ImagemDoJogo,quantidade FROM `visu_jogos`";
+    
+    $sql_select = "SELECT idJogos, nome, desenvolvedor, anoLancamento, Nomecategoria, NomeFornecedor, valor, ImagemDoJogo, quantidade FROM `visu_jogos`";
     $result = mysqli_query($conexao, $sql_select);
-
+    
     if ($result) {
-        $counter = 0; 
+        $counter = 0;
         echo '<div class="corpo">';
         echo '<ul>';
-        
+    
         while ($row = mysqli_fetch_assoc($result)) {
             if ($counter % 6 == 0) {
                 echo '</ul>';
                 echo '<ul>';
             }
-        
-            $img = "img/";
-        
-            // Verifique se a quantidade é igual a 0
-            $classeCSS = ($row['quantidade'] == 0) ? 'jogo-sem-estoque' : '';
-        
+    
             echo '<li>';
-            echo '<form method="POST" action="carrinho.html">';
-        
-            // Aplicar o filtro de saturação à imagem quando a quantidade for 0
-            $filtroSaturacao = ($row['quantidade'] == 0) ? 'style="filter: grayscale(100%);" ' : '';
-            echo '<a href="#"><img src="' . $img . $row['ImagemDoJogo'] . '" alt="" height="470" width="270" class="img ' . $classeCSS . '" ' . $filtroSaturacao . '></a>';
-
-        
+            echo '<form method="POST" action="carrinho-view.php">';
+            echo '<input type="hidden" name="id_jogo" value="' . $row['idJogos'] . '">'; // Campo oculto com o ID do jogo
+    
+            echo '<a href="#"><img src="img/' . $row['ImagemDoJogo'] . '" alt="" height="470" width="270" class="img"></a>';
+    
             echo '<p>' . $row['nome'] . '</p>';
             echo '<p>Quantidade disponível: ' . $row['quantidade'] . '</p>';
             echo '<p>Preço: R$ ' . $row['valor'] . '</p>';
@@ -86,50 +84,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<p>' . $row['anoLancamento'] . '</p>';
             echo '<p>' . $row['Nomecategoria'] . '</p>';
             echo '<p>' . $row['NomeFornecedor'] . '</p>';
-        
+    
             echo '<label for="quantidade">Selecione a quantidade:</label>';
-        
-            // Adicione a propriedade "disabled" ao campo de quantidade quando a quantidade for 0
             $quantidadeDisabled = ($row['quantidade'] == 0) ? 'disabled' : '';
-            if($row['quantidade'] > 0){
-            echo '<input type="number" id="quantidade" name="quantidade" min="1" max="' . $row['quantidade'] . '" ' . $quantidadeDisabled . ' value="1">';}
-            else{
+            if ($row['quantidade'] > 0) {
+                echo '<input type="number" id="quantidade" name="quantidade" min="1" max="' . $row['quantidade'] . '" ' . $quantidadeDisabled . ' value="1">';
+            } else {
                 echo '<input type="number" id="quantidade" name="quantidade" min="1" max="' . $row['quantidade'] . '" ' . $quantidadeDisabled . '>';
             }
-
-        
-            echo '<input type="hidden" name="jogo" value="' . $row['nome'] . '">';
-        
-            // Adicione a classe CSS "comprar-button" ao botão de compra
-            // e desabilite a interação do botão quando a quantidade for 0
+    
             $botaoDisabled = ($row['quantidade'] == 0) ? 'jogo-sem-estoque' : '';
-            echo '<button type="submit" class="comprar-button ' . $botaoDisabled . '" ' . $quantidadeDisabled . '>Adicionar ao carrinho</button>';
-        
+            echo '<button type="submit" name="add_to_cart" class="comprar-button ' . $botaoDisabled . '" ' . $quantidadeDisabled . '>Adicionar ao carrinho</button>';
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["id_jogo"]) && isset($_POST["quantidade"])) {
+                // Recupere o ID do jogo e a quantidade do formulário
+                $idJogo = $_POST["id_jogo"];
+                $quantidade = $_POST["quantidade"];
+              
+                // Inicialize ou atualize a variável de sessão $_SESSION['carrinho']
+                if (!isset($_SESSION['carrinho'])) {
+                  $_SESSION['carrinho'] = array();
+                }
+              
+                // Adicione o jogo ao carrinho
+                $_SESSION['carrinho'][$idJogo] = $quantidade;
+              
+                // Redirecione de volta para a página de jogos ou para onde você desejar
+                header("Location: jogos.php");
+                exit;
+              }
             echo '</form>';
             echo '</li>';
-        
+    
             $counter++;
         }
-        
-        
-        
-        
-        
-        
-        
+    
         echo '</ul>';
         echo '</div>';
-        
+    
         mysqli_free_result($result);
     } else {
         echo "Erro ao recuperar jogos do banco de dados: " . mysqli_error($conexao);
     }
-
+    
     mysqli_close($conexao);
     ?>
 </body>
 </html>
 
 <script>
-    console.log(<?php echo'$loginResult' ?>)
+    var loginResult = "<?php echo $loginResult; ?>";
+    console.log(loginResult);
 </script>

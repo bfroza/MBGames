@@ -256,6 +256,25 @@ aside > button {
   letter-spacing: 1px;
   font-size: 16px;
 }
+.botao-finalizar-compra {
+  border: 0;
+  padding: 15px 0;
+  color: white;
+  background-color: #0e542a;
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
+  cursor: pointer; /* Altere o cursor para mostrar que é clicável */
+}
+
+.botao-finalizar-compra:hover {
+  background: #3bc55b;
+  transition-duration: 500ms;
+  color: black;
+  transform: scale(1.05);
+}
 
 
 

@@ -98,11 +98,13 @@ CREATE TABLE Usuarios (
 
 -- Inserir valores base na tabela Usuarios
 INSERT INTO Usuarios (nome, user, cpf, email, dataNascimento, idade, senha) VALUES
+('Bruno Froza', 'bfroza', '03275586017', 'brunorbfroza@gmail.com', '2004-01-02', 19, 'bruno12345'),
 ('João Silva', 'joaosilva', '12345678900', 'joao@email.com', '1990-05-15', 33, 'senha123'),
 ('Maria Santos', 'mariasantos', '98765432100', 'maria@email.com', '1985-12-10', 37, 'senha456'),
 ('Pedro Oliveira', 'pedroliveira', '11122233344', 'pedro@email.com', '1995-08-20', 28, 'senha789'),
 ('Ana Pereira', 'anapereira', '55566677788', 'ana@email.com', '1992-03-25', 31, 'senha101'),
-('Carlos Rodrigues', 'carlosrodrigues', '99988877766', 'carlos@email.com', '1988-07-05', 35, 'senha202');
+('Carlos Rodrigues', 'carlosrodrigues', '99988877766', 'carlos@email.com', '1988-07-05', 35, 'senha202'),
+('Bruno Froza', 'bfroza', '03275586017', 'brunorbfroza@gmail.com', '2004-02-01', 19, 'bruno12345');
 
 
 -- -----------------------------------------------------
@@ -119,6 +121,7 @@ CREATE TABLE Cupons (
 
 -- Inserir valores base na tabela Cupons 
 INSERT INTO Cupons (cupom, desconto, ativo) VALUES
+('CUPOM', 0, 1),
 ('CUPOM10OFF', 10, 1),
 ('ULTRASECRET', 100, 1),
 ('VERAONOVO', 15, 1);
@@ -229,7 +232,9 @@ SELECT
     Jogos.imagem AS ImagemDoJogo,
     COUNT(Chaves.idChaves) AS Quantidade,
     MAX(Chaves.chave) AS Chave,
-    MAX(Usuarios.idUsuarios) AS IDUsuario
+    Usuarios.idUsuarios AS IDUsuario,
+	Chaves.idChaves AS IDChave
+
 FROM
     Jogos
 INNER JOIN
@@ -245,8 +250,10 @@ LEFT JOIN
 WHERE
     Chaves.estoque = 1
 GROUP BY
-    Jogos.nome, Jogos.desenvolvedor, Jogos.anoLancamento, Categorias.categoria, Fornecedores.nome, Jogos.valor, Jogos.imagem;
+    Jogos.nome, Jogos.desenvolvedor, Jogos.anoLancamento, Categorias.categoria, Fornecedores.nome, Jogos.valor, Jogos.imagem, Usuarios.idUsuarios;
 
+CREATE VIEW visu_jogos_atualizavel AS
+SELECT * FROM visu_jogos;
 
 
 -- View para a lista
@@ -297,6 +304,20 @@ FROM
 ORDER BY
     NomeFornecedor ASC,
     Quantidade;
+
+
+CREATE VIEW ViewChaves AS
+SELECT
+    c.idChaves,
+    c.chave,
+    c.estoque,
+    c.Fornecedores_idFornecedores,
+    c.Jogos_idJogos,
+    j.nome AS nomeJogo
+FROM
+    Chaves AS c
+JOIN
+    Jogos AS j ON c.Jogos_idJogos = j.idJogos;
 
 
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------
