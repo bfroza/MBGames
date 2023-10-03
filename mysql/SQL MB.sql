@@ -146,6 +146,13 @@ CREATE TABLE Chaves (
     ON UPDATE NO ACTION
 );
 
+INSERT INTO Chaves (chave, estoque, Fornecedores_idFornecedores, Jogos_idJogos)
+VALUES
+  ('Chave001', 1, 1, 1),
+  ('Chave002', 1, 1, 2),
+  ('Chave003', 1, 2, 3),
+  ('Chave004', 1, 3, 4),
+  ('Chave005', 1, 2, 5);
 
 
 
