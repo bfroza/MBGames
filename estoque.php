@@ -3,7 +3,7 @@
 include("conexao.php");
 
 // Execute uma consulta na tabela ViewChavesComData
-$sql = "SELECT idVenda, nomeJogo, idChaves, estoque, Fornecedores_idFornecedores, chave, dataVenda FROM ViewChavesComData WHERE estoque = 0 AND dataVenda IS NOT NULL";
+$sql = "SELECT  nomeJogo, idChaves, estoque, Fornecedores_idFornecedores, chave FROM ViewChavesComData WHERE estoque = 1 ORDER BY nomeJogo" ;
 $result = mysqli_query($conexao, $sql);
 
 // Verifique se há erros na consulta
@@ -17,7 +17,7 @@ if (!$result) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Vendas</title>
+    <title>Estoque</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/css1/bootstrap.min.css">
     <link rel="stylesheet" href="css/css1/bs-admin.css">
@@ -29,7 +29,7 @@ if (!$result) {
     <link rel="shortcut icon" href="img/verificacao-da-lista-da-area-de-transferencia.png" type="image/x-icon">
 </head>
 <body>
-    <h1>Lista de Vendas Realizadas </h1>
+    <h1>Estoque </h1>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -39,12 +39,11 @@ if (!$result) {
                             <table class="table table-bordered table-hover tabela-relatorio" id="dados">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID da Venda</th>
                                         <th scope="col">Nome do Jogo</th>
+                                        <th scope="col">Estoque</th>
                                         <th scope="col">ID da Chave</th>
                                         <th scope="col">ID do Fornecedor</th>
                                         <th scope="col">Chave</th>
-                                        <th scope="col">Data da Venda</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,12 +51,12 @@ if (!$result) {
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         ?>
                                         <tr>
-                                            <td><?php echo $row['idVenda']; ?></td>
+
                                             <td><?php echo $row['nomeJogo']; ?></td>
+                                            <td><?php echo $row['estoque']; ?></td>
                                             <td><?php echo $row['idChaves']; ?></td>
                                             <td><?php echo $row['Fornecedores_idFornecedores']; ?></td>
                                             <td><?php echo $row['chave']; ?></td>
-                                            <td><?php echo $row['dataVenda']; ?></td>
                                         </tr>
                                         <?php
                                     }
@@ -69,7 +68,7 @@ if (!$result) {
                 </div>
             </div>
         </div>
-        <button id="btnRelatorio">Relatório de Jogos</button>
+        <button id="btnRelatorio">Relatório de Estoque</button>
     </div>
 
     <?php

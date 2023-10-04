@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $valor = $_POST["valor"];
   
   if (empty($_POST['imagem'])) {
-      $imagem = "imagem.jpg"; 
+      $imagem = "images.png"; 
   } else {
       $imagem = trim($_POST["imagem"]);
   }

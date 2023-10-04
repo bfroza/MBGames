@@ -85,7 +85,7 @@
                         $conn->close();
                         ?>
                     </select>
-                    <input type="number" id="valor" name="valor" step="0.01" placeholder="Preço do jogo" required>
+                    <input type="number" id="valor" name="valor" min="1" step="0.01" placeholder="Preço do jogo" required>
                     <input type="file" id="imagem" name="imagem" placeholder="Imagem do jogo">
                 </div>
                 <button class="button" type="submit">Cadastrar Jogo</button>

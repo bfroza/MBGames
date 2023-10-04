@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <nav>
             <div class="lista">
                 <ul>
-                    <li><a href="index.php">HOME</a></li>
+                    <li><a href="index.php">INÍCIO</a></li>
                     <li><a href="jogos.php">JOGOS</a></li>
                     <li><a href="lista.php">LISTA</a></li>
                     <li><a href="cadastro-view.php">CADASTRO</a></li>
