@@ -22,7 +22,7 @@
                 <li><a href="lista-vendas.php">LISTA VENDAS</a></li>
                 <?php 
                      include("conexao.php");
-                    if ($loginResult != 'success' || $logado != true) {
+                    if ($loginResult != 'success' ) {
                         echo '<li class="botao"><a href="login.php" target="_blank">ENTRAR</a></li>';
                     } else {
                         echo '<li><a href="carrinho.html"><i class="fas fa-shopping-cart" style="color: #FFFFFF;"></i></a></li>';

@@ -17,7 +17,7 @@
                 <ul>
                     <li><a href="index.php">HOME</a></li>
                     <li><a href="jogos.php">JOGOS</a></li>
-                    <li><a href="platafoma.php">PLATAFORMAS</a></li>
+
                     <li><a href="cadastro-view.php">CADASTRO</a></li>
                     <li class="botao"><a href="login.html" target="_blank">ENTRAR</a></li>
                 </ul>
